@@ -38,6 +38,11 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Pregunta.findByCodigoPregunta", query = "SELECT p FROM Pregunta p WHERE p.codigoPregunta = :codigoPregunta")})
 public class Pregunta implements Serializable {
 
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "puntaje_pregunta")
+    private int puntajePregunta;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -199,6 +204,14 @@ public class Pregunta implements Serializable {
     @Override
     public String toString() {
         return "clases.Pregunta[ codigoPregunta=" + codigoPregunta + " ]";
+    }
+
+    public int getPuntajePregunta() {
+        return puntajePregunta;
+    }
+
+    public void setPuntajePregunta(int puntajePregunta) {
+        this.puntajePregunta = puntajePregunta;
     }
     
 }
