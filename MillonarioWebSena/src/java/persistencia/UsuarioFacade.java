@@ -8,7 +8,9 @@ package persistencia;
 import clases.Usuario;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +30,15 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
     public UsuarioFacade() {
         super(Usuario.class);
     }
-    
+
+    public Usuario consultarUsu(String numeroUsuario) {
+        String consultas = "select usua from Usuario usua where usua.numeroUsuario = '" + numeroUsuario + "'";
+        try {
+            Query query = em.createQuery(consultas);
+            return (Usuario) query.getSingleResult();
+        } catch (NoResultException u) {
+
+            return null;
+        }
+    }
 }

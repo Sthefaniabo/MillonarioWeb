@@ -1,16 +1,131 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            
+        </h:head>
+        <h:body>
+
+            <p:layout fullPage="true">
+
+                <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
+                    Creado por Sthefania - ADSI
+                </p:layoutUnit>
+
+                <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
+                    <h:form>
+                        <p:menu>
+                            <p:menuitem value="Inicio" url="index.xhtml" />
+                            <p:menuitem value="Usuarios" url="indexUsuario.xhtml"/>
+                            <p:menuitem value="Cuestionario" url="indexCuestionario.xhtml" />
+                            <p:menuitem value="Preguntas" url="indexPregunta.xhtml" />
+                            <p:menuitem value="Programa Aprendices" url="indexProgramaAprendiz.xhtml" />
+                            <p:menuitem value="Cerrar Sesión" action="#{vistaUsuarios.cerrarSesion()}" />
+
+                        </p:menu>
+                    </h:form>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="center">
+
+                    <h:form id="FormularioUsuarios">
+                        <p:messages id="mensajes" showDetail="true" closable="true"><!-- clasable para que pueda ceerar el mensaje-->
+                            <!-- se crean todos los elementos del formulario -->
+                        </p:messages>
+
+                        <p:panelGrid id="panelUsuarios" columns="2">
+                            <p:outputLabel value="Tipo de Identificación:"/>
+                            <p:selectOneMenu id="cmbIdentificacion" required="true" binding="#{vistaUsuarios.cmbIndentificacion}" requiredMessage="Debe seleccionar una identificacion" >
+                                  <f:selectItem itemLabel="Seleccione" itemValue="0"/>
+                                  <f:selectItem itemLabel="Cedula de ciudadania" itemValue="Cedula de ciudadania"/>
+                                  <f:selectItem itemLabel="Tarjeta de identidad" itemValue="Tarjeta de identidad"/>
+                                  <f:selectItem itemLabel="Tarjeta pasaporte" itemValue="Tarjeta pasaporte"/>
+                                  <f:selectItem itemLabel="Cedula de extranjeria" itemValue="Cedula de extranjeria"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Número de identificación:"/>
+                            <p:inputText id="txtNumeroUsuario" binding="#{vistaUsuarios.txtDocumentoUsuario}" />
+                            <p:outputLabel value="Nombres:"/>
+                            <p:inputText id="txtNombreUsu" binding="#{vistaUsuarios.txtNombreUsu}" />
+                            <p:outputLabel value="Apellido:"/>
+                            <p:inputText id="txtApellidoUsu" binding="#{vistaUsuarios.txtApellidoUsu}" />
+                            <p:outputLabel value="Direcció:"/>
+                            <p:inputText id="txtDireccionUsu" binding="#{vistaUsuarios.txtDireccionUsu}" />
+                            <p:outputLabel value="Telefono:"/>
+                            <p:inputText id="txtTelefonoUsu" binding="#{vistaUsuarios.txtTelefonoUsu}" />
+                            <p:outputLabel value="Correo:"/>
+                            <p:inputText id="txtCorreoUsu" binding="#{vistaUsuarios.txtCorreoUsu}" />
+                            <p:outputLabel value="Permisos:"/>
+                            <p:selectOneMenu id="cmbPermisos" required="true" binding="#{vistaUsuarios.cmbPermisosUsu}" requiredMessage="Debe seleccionar un tipo" >
+                                  <f:selectItem itemLabel="Seleccione" itemValue="0"/>
+                                  <f:selectItem itemLabel="Administrador" itemValue="Administrador"/>
+                                  <f:selectItem itemLabel="Instructor" itemValue="Instructor"/>
+                                  <f:selectItem itemLabel="Coordinador" itemValue="Coordinador"/>
+                                  <f:selectItem itemLabel="Funcionario" itemValue="Funcionario"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Clave:"/>
+                            <p:password id="passClaveUsu" binding="#{vistaUsuarios.passUsuario}" />
+                        </p:panelGrid>
+                        <p:commandButton value="Registrar" id="btnRegistrar" binding="#{vistaUsuarios.btnRegistrar}" actionListener="#{vistaUsuarios.registrarUsu()}" update="FormularioUsuarios,tablausuario"/>
+                        <p:commandButton value="Modificar" id="btnActualizar" binding="#{vistaUsuarios.btnModificar}" actionListener="#{vistaUsuarios.modificarUsu()}" update="FormularioUsuarios,tablausuario"/>
+                        <p:commandButton value="Limpiar" id="btnLimpiar" binding="#{vistaUsuarios.btnLimpiar}" actionListener="#{vistaUsuarios.limpiar()}" update="FormularioUsuarios,tablausuario"/>
+                        <p:commandButton value="Eliminar" id="btnEliminar" binding="#{vistaUsuarios.btnEliminar}" actionListener="#{vistaUsuarios.eliminarUsu()}" update="FormularioUsuarios,tablausuario"/>
+                
+                        
+                        <p:dataTable id="tablausuario" var="user" value="#{vistaUsuarios.listaUsu}" selectionMode="single" rowKey="#{user.codigoUsuario}"
+                                     selection="#{vistaUsuarios.usuSeleccionado}" rows="5" paginator="true" rowsPerPageTemplate="5,10,15">
+                            <p:ajax event="rowSelect" listener="#{vistaUsuarios.usuSeleccionado}" update=":FormularioUsuarios"/>
+                            <p:column headerText="Codigo usuario">
+                                <h:outputText value="#{user.codigoUsuario}" />
+                            </p:column>
+
+                            <p:column headerText="Tipo de identificación">
+                                <h:outputText value="#{user.tipoIdentificacion}" />
+                            </p:column>
+
+                            <p:column headerText="Número de identificación">
+                                <h:outputText value="#{user.numeroUsuario}" />
+                            </p:column>
+
+                            <p:column headerText="Nombre">
+                                <h:outputText value="#{user.nombreUsuario}" />
+                            </p:column>
+                            
+                            <p:column headerText="Apellido">
+                                <h:outputText value="#{user.apellidoUsuario}" />
+                            </p:column>
+                            
+                            <p:column headerText="Dirección">
+                                <h:outputText value="#{user.direccionUsuario}" />
+                            </p:column>
+                            
+                            <p:column headerText="Telefono">
+                                <h:outputText value="#{user.telefonoUsuario}" />
+                            </p:column>
+                            
+                            <p:column headerText="Correo">
+                                <h:outputText value="#{user.correoUsuario}" />
+                            </p:column>
+                            
+                            <p:column headerText="Permisos">
+                                <h:outputText value="#{user.permisoUsuario}" />
+                            </p:column>
+                            
+                            <p:column headerText="Clave">
+                                <h:outputText value="#{user.claveUsuario}" />
+                            </p:column>
+
+                        </p:dataTable>
+                    </h:form>
+                </p:layoutUnit>
+
+            </p:layout>
+
+        </h:body>
+
+    </f:view>
 </html>
