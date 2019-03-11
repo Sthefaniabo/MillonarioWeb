@@ -6,9 +6,12 @@
 package persistencia;
 
 import clases.Pregunta;
+import clases.Usuario;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +31,8 @@ public class PreguntaFacade extends AbstractFacade<Pregunta> {
     public PreguntaFacade() {
         super(Pregunta.class);
     }
+    
+                
+    
     
 }

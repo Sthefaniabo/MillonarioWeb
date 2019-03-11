@@ -1,16 +1,105 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Mi Primer Java WEB</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+
+            <p:layout fullPage="true">
+
+                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true" style="text-align: center">
+                    MODULO CREAR PREGUNTA   
+                </p:layoutUnit>
+
+                <p:layoutUnit position="south" size="100" closable="true" collapsible="true" style="text-align: center">
+                    ADSI- TEAM JAVA
+                </p:layoutUnit>
+
+                <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
+                    <h:form>
+                        <p:menu>
+                            <p:menuitem value="STHEFANIA" url="" />
+                            <p:menuitem value="BRAYAN" url="" />
+                            <p:menuitem value="JHON" url="" />
+                            <p:menuitem value="PINILLA" url="" />
+                        </p:menu>
+                    </h:form>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="center">
+                    <center>
+                        <h:form id="formularioPregunta">
+                            <p:messages id="mensajes" showDetail="true" closable="true"><!-- clasable para que pueda ceerar el mensaje-->
+                                <!-- se crean todos los elementos del formulario -->
+                            </p:messages>
+
+                            <p:panelGrid id="tablaPregunta" columns="2" >
+
+                                <p:outputLabel value="PREGUNTA"/>
+                                <p:inputText id="txtPregunta" binding="#{vistaPregunta.txtPregunta}" style="width:560px"/>
+
+                                <p:outputLabel value="RESPUESTA A"/>
+                                <p:inputText id="txtOpcionA_pregunta" binding="#{vistaPregunta.txtOpcionA_pregunta}" style="width:560px"/>
+
+                                <p:outputLabel value="RESPUESTA B"/>
+                                <p:inputText id="txtOpcionB_pregunta" binding="#{vistaPregunta.txtOpcionB_pregunta}" style="width:560px"/>
+
+                                <p:outputLabel value="RESPUESTA C"/>
+                                <p:inputText id="txtOpcionC_pregunta" binding="#{vistaPregunta.txtOpcionC_pregunta}" style="width:560px"/>
+
+                                <p:outputLabel value="RESPUESTA D"/>
+                                <p:inputText id="txtOpcionD_pregunta" binding="#{vistaPregunta.txtOpcionD_pregunta}" style="width:560px"/>
+                                
+                                <p:outputLabel value="RESPUESTA CORRCTA" />
+                                <p:inputText id="txtOpcionCorrecta_pregunta" binding="#{vistaPregunta.txtOpcionCorrecta_pregunta}" style="width:560px"/>
+
+                                <p:outputLabel value="PUNTAGE"/>
+                                <p:inputText id="txtPuntaje_Pregunta" binding="#{vistaPregunta.txtPuntaje_Pregunta}" style="width:260px" placeholder="****************"/>
+
+
+                                <p:column>  
+                                    <p:outputLabel value="CODIGO INSTRUCTOR"/>
+                                </p:column>  
+                                <p:column>  
+                                    <p:selectOneMenu id="cmbProducto" binding="#{vistaPregunta.cmbCodigo_usuario_pregunta}"
+                                                     filter="true" filterMatchMode="startsWith" style="width:260px">
+                                        <f:selectItem itemLabel="Seleccione" itemValue="null"/>
+                                        <f:selectItems value="#{vistaPregunta.itemsUsuarios}"/>
+                                    </p:selectOneMenu> 
+                                </p:column>
+
+                                
+                                
+                                
+
+                                <p:commandButton value="Guardar" id="btnRegistrar" binding="#{vistaPregunta.btnRegistrar}" actionListener="#{vistaPregunta.registrarPregunta()}" update="formularioPregunta,tablaPregunta" />
+
+                                <p:commandButton value="Limpiar" id="btnLimpiar" binding="#{vistaPregunta.btnLimpiar}" actionListener="#{vistaPregunta.limpiar()}" update="formularioPregunta,tablaPregunta" />
+
+
+                            </p:panelGrid>
+
+
+
+
+                        </h:form>
+                    </center>
+                </p:layoutUnit>
+
+            </p:layout>
+
+        </h:body>
+
+    </f:view>
 </html>
+
