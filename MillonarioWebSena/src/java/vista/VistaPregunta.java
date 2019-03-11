@@ -8,6 +8,7 @@ package vista;
 import clases.Pregunta;
 import clases.Usuario;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,8 +17,10 @@ import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
+import org.primefaces.component.selectonemenu.SelectOneMenu;
 import persistencia.PreguntaFacade;
 import persistencia.UsuarioFacade;
 
@@ -28,33 +31,27 @@ import persistencia.UsuarioFacade;
 @Named(value = "vistaPregunta")
 @RequestScoped
 public class VistaPregunta {
-    
-    
+
     @EJB
     private PreguntaFacade preguntaPersistencia;
     @EJB
     private UsuarioFacade usuarioPersistencia;
-    
-    
+
     private List<Usuario> listaUsuario;
     private List<Pregunta> listaPregunta;
-    
+
     private InputText txtPregunta;
     private InputText txtOpcionA_pregunta;
     private InputText txtOpcionB_pregunta;
     private InputText txtOpcionC_pregunta;
     private InputText txtOpcionD_pregunta;
     private InputText txtPuntaje_Pregunta;
-    
+    private SelectOneMenu cmbCodigo_usuario_pregunta;
     private InputText txtOpcionCorrecta_pregunta;
     private InputText txtUsuario_Pregunta;
     private CommandButton btnRegistrar;
     private CommandButton btnLimpiar;
-    
-    
-    
-
-    
+    private ArrayList<SelectItem> itemsUsuarios;
 
     /**
      * Creates a new instance of VistaPregunta
@@ -229,7 +226,7 @@ public class VistaPregunta {
     public void setBtnLimpiar(CommandButton btnLimpiar) {
         this.btnLimpiar = btnLimpiar;
     }
-  
+
     /**
      * @return the txtPuntaje_Pregunta
      */
@@ -243,8 +240,8 @@ public class VistaPregunta {
     public void setTxtPuntaje_Pregunta(InputText txtPuntaje_Pregunta) {
         this.txtPuntaje_Pregunta = txtPuntaje_Pregunta;
     }
-    
-      public void limpiar() {
+
+    public void limpiar() {
 
         getTxtPregunta().setValue("");
         getTxtOpcionA_pregunta().setValue("");
@@ -253,35 +250,37 @@ public class VistaPregunta {
         getTxtOpcionD_pregunta().setValue("");
         getTxtPuntaje_Pregunta().setValue("");
         getTxtOpcionCorrecta_pregunta().setValue("");
-      
+        getCmbCodigo_usuario_pregunta().setValue("");
+
     }
-      
-      public void registrarPregunta (){
-          
-            Pregunta nuevaPregunta = new Pregunta();
-            nuevaPregunta.setPregunta(txtPregunta.getValue().toString());
-            nuevaPregunta.setOpcionApregunta(txtOpcionA_pregunta.getValue().toString());
-            nuevaPregunta.setOpcionBpregunta(txtOpcionB_pregunta.getValue().toString());
-            nuevaPregunta.setOpcionCpregunta(txtOpcionC_pregunta.getValue().toString());
-            nuevaPregunta.setOpcionDpregunta(txtOpcionD_pregunta.getValue().toString());
-            nuevaPregunta.setOpcionCorrectapregunta(txtOpcionCorrecta_pregunta.getValue().toString());
-            nuevaPregunta.setPuntajePregunta(Integer.parseInt(txtPuntaje_Pregunta.getValue().toString()));
-            /*nuevaPregunta.setCodigoUsuarioPregunta(Integer.parseInt(getTxtUsuario_Pregunta().getValue().toString()));*/
-            
-            
-             preguntaPersistencia.create(nuevaPregunta);
-            limpiar();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Notificación", "¡pregunta registrada correctamente!"));
-            
-       
-        
-        }
-    
+
+    public void registrarPregunta() {
+
+        Pregunta nuevaPregunta = new Pregunta();
+
+        nuevaPregunta.setPregunta(getTxtPregunta().getValue().toString());
+        nuevaPregunta.setOpcionApregunta(getTxtOpcionA_pregunta().getValue().toString());
+
+        nuevaPregunta.setOpcionBpregunta(getTxtOpcionB_pregunta().getValue().toString());
+        nuevaPregunta.setOpcionCpregunta(getTxtOpcionC_pregunta().getValue().toString());
+        nuevaPregunta.setOpcionDpregunta(getTxtOpcionD_pregunta().getValue().toString());
+        nuevaPregunta.setOpcionCorrectapregunta(getTxtOpcionCorrecta_pregunta().getValue().toString());
+        nuevaPregunta.setPuntajePregunta(Integer.parseInt(getTxtPuntaje_Pregunta().getValue().toString()));
+        int codigo = Integer.parseInt(cmbCodigo_usuario_pregunta.getValue().toString());
+        Usuario user = usuarioPersistencia.find(codigo);
+        nuevaPregunta.setCodigoUsuarioPregunta(user);
+
+        getPreguntaPersistencia().create(nuevaPregunta);
+
+        limpiar();
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Notificación", "¡pregunta registrada correctamente!"));
+    }
 
     /**
      * @return the listaUsuario
      */
     public List<Usuario> getListaUsuario() {
+        listaUsuario = getUsuarioPersistencia().findAll();
         return listaUsuario;
     }
 
@@ -295,8 +294,38 @@ public class VistaPregunta {
     private Object preguntaPersistencia() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-        
-      }
 
-    
+    /**
+     * @return the cmbCodigo_usuario_pregunta
+     */
+    public SelectOneMenu getCmbCodigo_usuario_pregunta() {
+        return cmbCodigo_usuario_pregunta;
+    }
 
+    /**
+     * @param cmbCodigo_usuario_pregunta the cmbCodigo_usuario_pregunta to set
+     */
+    public void setCmbCodigo_usuario_pregunta(SelectOneMenu cmbCodigo_usuario_pregunta) {
+        this.cmbCodigo_usuario_pregunta = cmbCodigo_usuario_pregunta;
+    }
+
+    /**
+     * @return the itemsUsuarios
+     */
+    public ArrayList<SelectItem> getItemsUsuarios() {
+        listaUsuario = usuarioPersistencia.findAll();
+        itemsUsuarios = new ArrayList<>();
+        for (Usuario u : listaUsuario) {
+            itemsUsuarios.add(new SelectItem(u.getCodigoUsuario(), u.getNombreUsuario()));
+        }
+        return itemsUsuarios;
+    }
+
+    /**
+     * @param itemsUsuarios the itemsUsuarios to set
+     */
+    public void setItemsUsuarios(ArrayList<SelectItem> itemsUsuarios) {
+        this.itemsUsuarios = itemsUsuarios;
+    }
+
+}

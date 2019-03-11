@@ -37,46 +37,63 @@
                 </p:layoutUnit>
 
                 <p:layoutUnit position="center">
+                    <center>
+                        <h:form id="formularioPregunta">
+                            <p:messages id="mensajes" showDetail="true" closable="true"><!-- clasable para que pueda ceerar el mensaje-->
+                                <!-- se crean todos los elementos del formulario -->
+                            </p:messages>
 
-                    <h:form id="formularioPregunta">
-                        <p:messages id="mensajes" showDetail="true" closable="true"><!-- clasable para que pueda ceerar el mensaje-->
-                            <!-- se crean todos los elementos del formulario -->
-                        </p:messages>
+                            <p:panelGrid id="tablaPregunta" columns="2" >
 
-                        <p:panelGrid id="tablaPregunta" columns="4">
+                                <p:outputLabel value="PREGUNTA"/>
+                                <p:inputText id="txtPregunta" binding="#{vistaPregunta.txtPregunta}" style="width:560px"/>
 
-                            <p:outputLabel value="PREGUNTA"/>
-                            <p:inputText id="txtPregunta" binding="#{vistaPregunta.txtPregunta}" />
+                                <p:outputLabel value="RESPUESTA A"/>
+                                <p:inputText id="txtOpcionA_pregunta" binding="#{vistaPregunta.txtOpcionA_pregunta}" style="width:560px"/>
 
-                            <p:outputLabel value="RESPUESTA A"/>
-                            <p:inputText id="txtOpcionA_pregunta" binding="#{vistaPregunta.txtOpcionA_pregunta}" />
+                                <p:outputLabel value="RESPUESTA B"/>
+                                <p:inputText id="txtOpcionB_pregunta" binding="#{vistaPregunta.txtOpcionB_pregunta}" style="width:560px"/>
 
-                            <p:outputLabel value="RESPUESTA B"/>
-                            <p:inputText id="txtOpcionB_pregunta" binding="#{vistaPregunta.txtOpcionB_pregunta}"/>
+                                <p:outputLabel value="RESPUESTA C"/>
+                                <p:inputText id="txtOpcionC_pregunta" binding="#{vistaPregunta.txtOpcionC_pregunta}" style="width:560px"/>
 
-                            <p:outputLabel value="RESPUESTA C"/>
-                            <p:inputText id="txtOpcionC_pregunta" binding="#{vistaPregunta.txtOpcionC_pregunta}" />
+                                <p:outputLabel value="RESPUESTA D"/>
+                                <p:inputText id="txtOpcionD_pregunta" binding="#{vistaPregunta.txtOpcionD_pregunta}" style="width:560px"/>
+                                
+                                <p:outputLabel value="RESPUESTA CORRCTA" />
+                                <p:inputText id="txtOpcionCorrecta_pregunta" binding="#{vistaPregunta.txtOpcionCorrecta_pregunta}" style="width:560px"/>
 
-                            <p:outputLabel value="RESPUESTA D"/>
-                            <p:inputText id="txtOpcionD_pregunta" binding="#{vistaPregunta.txtOpcionD_pregunta}" />
-
-                            <p:outputLabel value="RESPUESTA CORRCTA"/>
-                            <p:inputText id="txtOpcionCorrecta_pregunta" binding="#{vistaPregunta.txtOpcionCorrecta_pregunta}" />
-
-                            <p:outputLabel value="VALOR PREGUNTA"/>
-                            <p:inputText id="txtPuntaje_Pregunta" binding="#{vistaPregunta.txtUsuario_Pregunta}" />
-
-                            <p:commandButton value="Guardar" id="btnRegistrar" binding="#{vistaPregunta.btnRegistrar}" actionListener="#{vistaPregunta.registrarPregunta()}" update="formularioPregunta,tablaPregunta" />
-                        
-                        <p:commandButton value="Limpiar" id="btnLimpiar" binding="#{vistaPregunta.btnLimpiar}" actionListener="#{vistaPregunta.limpiar()}" update="formularioPregunta,tablaPregunta" />
+                                <p:outputLabel value="PUNTAGE"/>
+                                <p:inputText id="txtPuntaje_Pregunta" binding="#{vistaPregunta.txtPuntaje_Pregunta}" style="width:260px" placeholder="****************"/>
 
 
-                        </p:panelGrid>
+                                <p:column>  
+                                    <p:outputLabel value="CODIGO INSTRUCTOR"/>
+                                </p:column>  
+                                <p:column>  
+                                    <p:selectOneMenu id="cmbProducto" binding="#{vistaPregunta.cmbCodigo_usuario_pregunta}"
+                                                     filter="true" filterMatchMode="startsWith" style="width:260px">
+                                        <f:selectItem itemLabel="Seleccione" itemValue="null"/>
+                                        <f:selectItems value="#{vistaPregunta.itemsUsuarios}"/>
+                                    </p:selectOneMenu> 
+                                </p:column>
 
-                        
+                                
+                                
+                                
+
+                                <p:commandButton value="Guardar" id="btnRegistrar" binding="#{vistaPregunta.btnRegistrar}" actionListener="#{vistaPregunta.registrarPregunta()}" update="formularioPregunta,tablaPregunta" />
+
+                                <p:commandButton value="Limpiar" id="btnLimpiar" binding="#{vistaPregunta.btnLimpiar}" actionListener="#{vistaPregunta.limpiar()}" update="formularioPregunta,tablaPregunta" />
 
 
-                    </h:form>
+                            </p:panelGrid>
+
+
+
+
+                        </h:form>
+                    </center>
                 </p:layoutUnit>
 
             </p:layout>
