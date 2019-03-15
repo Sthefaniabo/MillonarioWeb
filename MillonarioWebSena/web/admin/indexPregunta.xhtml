@@ -28,10 +28,13 @@
                 <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
                     <h:form>
                         <p:menu>
-                            <p:menuitem value="STHEFANIA" url="" />
-                            <p:menuitem value="BRAYAN" url="" />
-                            <p:menuitem value="JHON" url="" />
-                            <p:menuitem value="PINILLA" url="" />
+                            <p:menuitem value="Inicio" url="index.xhtml" />
+                            <p:menuitem value="Usuarios" url="indexUsuario.xhtml"/>
+                            <p:menuitem value="Cuestionario" url="indexCuestionario.xhtml" />
+                            <p:menuitem value="Preguntas" url="indexPregunta.xhtml" />
+                            <p:menuitem value="Programa Aprendices" url="indexProgramaAprendiz.xhtml" />
+                            <p:menuitem value="Cerrar Sesión" action="#{vistaUsuarios.cerrarSesion()}" />
+
                         </p:menu>
                     </h:form>
                 </p:layoutUnit>
@@ -44,10 +47,10 @@
                             </p:messages>
 
                             <p:panelGrid id="tablaPregunta" columns="2" >
-
+                             
                                 <p:outputLabel value="PREGUNTA"/>
-                                <p:inputText id="txtPregunta" binding="#{vistaPregunta.txtPregunta}" style="width:560px"/>
-
+                                <p:inputText id="txtPregunta" binding="#{vistaPregunta.txtPregunta}" style="width:560px" />
+                          
                                 <p:outputLabel value="RESPUESTA A"/>
                                 <p:inputText id="txtOpcionA_pregunta" binding="#{vistaPregunta.txtOpcionA_pregunta}" style="width:560px"/>
 
@@ -85,8 +88,11 @@
                                 <p:commandButton value="Guardar" id="btnRegistrar" binding="#{vistaPregunta.btnRegistrar}" actionListener="#{vistaPregunta.registrarPregunta()}" update="formularioPregunta,tablaPregunta" />
 
                                 <p:commandButton value="Limpiar" id="btnLimpiar" binding="#{vistaPregunta.btnLimpiar}" actionListener="#{vistaPregunta.limpiar()}" update="formularioPregunta,tablaPregunta" />
+                                
+                                <p:commandButton value="Volver" id="btnVolver" binding="#{vistaPregunta.btnVolver}" actionListener="#{vistaPregunta.volver()}" update="formularioPregunta,tablaPregunta" />
 
-
+                               
+                                
                             </p:panelGrid>
 
 

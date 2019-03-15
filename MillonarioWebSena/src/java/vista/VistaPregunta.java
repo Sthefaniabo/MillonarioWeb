@@ -51,6 +51,7 @@ public class VistaPregunta {
     private InputText txtUsuario_Pregunta;
     private CommandButton btnRegistrar;
     private CommandButton btnLimpiar;
+    private CommandButton btnVolver;
     private ArrayList<SelectItem> itemsUsuarios;
 
     /**
@@ -253,6 +254,10 @@ public class VistaPregunta {
         getCmbCodigo_usuario_pregunta().setValue("");
 
     }
+    
+    public void volver() throws IOException{
+        FacesContext.getCurrentInstance().getExternalContext().redirect("indexUsuario.xhtml");
+    }
 
     public void registrarPregunta() {
 
@@ -326,6 +331,20 @@ public class VistaPregunta {
      */
     public void setItemsUsuarios(ArrayList<SelectItem> itemsUsuarios) {
         this.itemsUsuarios = itemsUsuarios;
+    }
+
+    /**
+     * @return the btnVolver
+     */
+    public CommandButton getBtnVolver() {
+        return btnVolver;
+    }
+
+    /**
+     * @param btnVolver the btnVolver to set
+     */
+    public void setBtnVolver(CommandButton btnVolver) {
+        this.btnVolver = btnVolver;
     }
 
 }
