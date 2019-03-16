@@ -30,13 +30,13 @@ import persistencia.UsuarioFacade;
 @Named(value = "vistaUsuarios")
 @RequestScoped
 public class vistaUsuarios {
-    
+
     @EJB
     private UsuarioFacade usuaPersistencia;
-    
+
     private List<Usuario> listaUsu;
     private SelectOneMenu cmbIndentificacion;
-     private InputText txtDocumentoUsuario;
+    private InputText txtDocumentoUsuario;
     private InputText txtNombreUsu;
     private InputText txtApellidoUsu;
     private InputText txtDireccionUsu;
@@ -52,7 +52,7 @@ public class vistaUsuarios {
     private CommandButton btnEliminar;
     private CommandButton btnLimpiar;
     private Usuario usuSeleccionado;
-   
+
     /**
      * Creates a new instance of vistaUsuarios
      */
@@ -325,11 +325,10 @@ public class vistaUsuarios {
     public void setPassClaveNew2(Password passClaveNew2) {
         this.passClaveNew2 = passClaveNew2;
     }
-    
-    
-    public void registrarUsu(){
-        
-         Usuario nuevoUsu = new Usuario();
+
+    public void registrarUsu() {
+
+        Usuario nuevoUsu = new Usuario();
         nuevoUsu.setTipoIdentificacion(cmbIndentificacion.getValue().toString());
         nuevoUsu.setNumeroUsuario(Integer.parseInt(txtDocumentoUsuario.getValue().toString()));
         nuevoUsu.setNombreUsuario(txtNombreUsu.getValue().toString());
@@ -342,11 +341,11 @@ public class vistaUsuarios {
         usuaPersistencia.create(nuevoUsu);
         limpiar();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Notificación", "¡Usuario registrado correctamente!"));
-        
+
     }
-    
-    public void modificarUsu(){
-        
+
+    public void modificarUsu() {
+
         Usuario usua = usuSeleccionado;
         usua.setTipoIdentificacion(cmbIndentificacion.getValue().toString());
         usua.setNumeroUsuario(Integer.parseInt(txtDocumentoUsuario.getValue().toString()));
@@ -360,11 +359,11 @@ public class vistaUsuarios {
         usuaPersistencia.edit(usua);
         limpiar();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Notificación", "¡Usuario modificado correctamente!"));
-        
+
     }
-    
-    public void limpiar(){
-        
+
+    public void limpiar() {
+
         getTxtDocumentoUsuario().setValue("");
         getTxtNombreUsu().setValue("");
         getTxtApellidoUsu().setValue("");
@@ -373,27 +372,26 @@ public class vistaUsuarios {
         getTxtCorreoUsu().setValue("");
         getPassUsuario().setValue("");
     }
-    
-    public void eliminarUsu(){
-        
+
+    public void eliminarUsu() {
+
         Usuario usu = usuSeleccionado;
         Usuario usuario = usuaPersistencia.find(usu.getCodigoUsuario());
-        if(usuario.equals(usu)){
+        if (usuario.equals(usu)) {
             usuaPersistencia.remove(usuario);
             limpiar();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Notificación", "¡Usuario eliminado correctamente!"));
-        }else{
-             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Notificación", "¡No se pudo eliminar el usuario!"));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Notificación", "¡No se pudo eliminar el usuario!"));
         }
-        
+
     }
-    
-    public void ingresar_usu(){
-        
+
+    public void ingresar_usu() {
+
         String usua = txtDocumentoUsuario.getValue().toString();
         String contra = passUsuario.getValue().toString();
-        String tipoUsuario = "";
-        
+
         Usuario logueado = usuaPersistencia.consultarUsu(usua);
         String pagina = "";
         if (logueado == null) {
@@ -403,7 +401,22 @@ public class vistaUsuarios {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Notificación", "¡Clave incorrecta!"));
             } else {
                 try {
-                    pagina = "admin/indexUsuario.xhtml";
+                    if (logueado.getPermisoUsuario().equals("Administrador")) {
+                        pagina = "admin/indexUsuario.xhtml";
+                    } else {
+                        if (logueado.getPermisoUsuario().equals("Coordinador")) {
+                            pagina = "admin/indexPregunta.xhtml";
+                        }else{
+                            if(logueado.getPermisoUsuario().equals("Instructor")){
+                                pagina = "admin/indexCuestionario.xhtml";
+                            }else{
+                                if(logueado.getPermisoUsuario().equals("Funcionario")){
+                                    pagina = "admin/indexCuestionario.xhtml";
+                                }
+                            }
+                        }
+                    }
+
                     FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", logueado);
                     FacesContext.getCurrentInstance().getExternalContext().redirect(pagina);
                 } catch (IOException ex) {
@@ -411,9 +424,9 @@ public class vistaUsuarios {
                 }
             }
         }
-        
+
     }
-    
+
     public void cerrarSesion() {
         try {
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("usuario");
@@ -423,8 +436,8 @@ public class vistaUsuarios {
         }
 
     }
-    
-   public void seleccionarUsu(SelectEvent evento) {
+
+    public void seleccionarUsu(SelectEvent evento) {
         usuSeleccionado = (Usuario) evento.getObject();
         if (usuSeleccionado != null) {
             cmbIndentificacion.setValue(usuSeleccionado.getTipoIdentificacion());
@@ -438,6 +451,5 @@ public class vistaUsuarios {
             passUsuario.setValue(usuSeleccionado.getClaveUsuario());
         }
     }
-   
-    
+
 }
