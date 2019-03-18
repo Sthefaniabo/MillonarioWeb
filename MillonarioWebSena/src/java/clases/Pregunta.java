@@ -14,9 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -87,9 +85,6 @@ public class Pregunta implements Serializable {
     private int puntajePregunta;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoPregunta")
     private List<PreguntaCuestionario> preguntaCuestionarioList;
-    @JoinColumn(name = "codigo_usuario_pregunta", referencedColumnName = "codigo_usuario")
-    @ManyToOne(optional = false)
-    private Usuario codigoUsuarioPregunta;
 
     public Pregunta() {
     }
@@ -180,14 +175,6 @@ public class Pregunta implements Serializable {
 
     public void setPreguntaCuestionarioList(List<PreguntaCuestionario> preguntaCuestionarioList) {
         this.preguntaCuestionarioList = preguntaCuestionarioList;
-    }
-
-    public Usuario getCodigoUsuarioPregunta() {
-        return codigoUsuarioPregunta;
-    }
-
-    public void setCodigoUsuarioPregunta(Usuario codigoUsuarioPregunta) {
-        this.codigoUsuarioPregunta = codigoUsuarioPregunta;
     }
 
     @Override
