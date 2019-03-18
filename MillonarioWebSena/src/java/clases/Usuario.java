@@ -6,7 +6,6 @@
 package clases;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,13 +15,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -97,8 +94,6 @@ public class Usuario implements Serializable {
     private String claveUsuario;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario")
     private Cuestionario cuestionario;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoUsuarioPregunta")
-    private List<Pregunta> preguntaList;
 
     public Usuario() {
     }
@@ -206,15 +201,6 @@ public class Usuario implements Serializable {
 
     public void setCuestionario(Cuestionario cuestionario) {
         this.cuestionario = cuestionario;
-    }
-
-    @XmlTransient
-    public List<Pregunta> getPreguntaList() {
-        return preguntaList;
-    }
-
-    public void setPreguntaList(List<Pregunta> preguntaList) {
-        this.preguntaList = preguntaList;
     }
 
     @Override

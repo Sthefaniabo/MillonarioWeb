@@ -30,17 +30,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ProgramaAprendices.findAll", query = "SELECT p FROM ProgramaAprendices p")
-    , @NamedQuery(name = "ProgramaAprendices.findByCodigoPrograma", query = "SELECT p FROM ProgramaAprendices p WHERE p.codigoPrograma = :codigoPrograma")
+    , @NamedQuery(name = "ProgramaAprendices.findByCodigoJuego", query = "SELECT p FROM ProgramaAprendices p WHERE p.codigoJuego = :codigoJuego")
     , @NamedQuery(name = "ProgramaAprendices.findByCodigoFicha", query = "SELECT p FROM ProgramaAprendices p WHERE p.codigoFicha = :codigoFicha")
-    , @NamedQuery(name = "ProgramaAprendices.findByNombreAprendiz", query = "SELECT p FROM ProgramaAprendices p WHERE p.nombreAprendiz = :nombreAprendiz")})
+    , @NamedQuery(name = "ProgramaAprendices.findByNombreAprendiz", query = "SELECT p FROM ProgramaAprendices p WHERE p.nombreAprendiz = :nombreAprendiz")
+    , @NamedQuery(name = "ProgramaAprendices.findByPuntajeAprendiz", query = "SELECT p FROM ProgramaAprendices p WHERE p.puntajeAprendiz = :puntajeAprendiz")})
 public class ProgramaAprendices implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "codigo_programa")
-    private Integer codigoPrograma;
+    @Column(name = "codigo_juego")
+    private Integer codigoJuego;
     @Basic(optional = false)
     @NotNull
     @Column(name = "codigo_ficha")
@@ -50,6 +51,10 @@ public class ProgramaAprendices implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "nombre_aprendiz")
     private String nombreAprendiz;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "puntaje_aprendiz")
+    private int puntajeAprendiz;
     @JoinColumn(name = "codigo_cuestionario", referencedColumnName = "codigo_cuestionario")
     @ManyToOne(optional = false)
     private Cuestionario codigoCuestionario;
@@ -57,22 +62,23 @@ public class ProgramaAprendices implements Serializable {
     public ProgramaAprendices() {
     }
 
-    public ProgramaAprendices(Integer codigoPrograma) {
-        this.codigoPrograma = codigoPrograma;
+    public ProgramaAprendices(Integer codigoJuego) {
+        this.codigoJuego = codigoJuego;
     }
 
-    public ProgramaAprendices(Integer codigoPrograma, int codigoFicha, String nombreAprendiz) {
-        this.codigoPrograma = codigoPrograma;
+    public ProgramaAprendices(Integer codigoJuego, int codigoFicha, String nombreAprendiz, int puntajeAprendiz) {
+        this.codigoJuego = codigoJuego;
         this.codigoFicha = codigoFicha;
         this.nombreAprendiz = nombreAprendiz;
+        this.puntajeAprendiz = puntajeAprendiz;
     }
 
-    public Integer getCodigoPrograma() {
-        return codigoPrograma;
+    public Integer getCodigoJuego() {
+        return codigoJuego;
     }
 
-    public void setCodigoPrograma(Integer codigoPrograma) {
-        this.codigoPrograma = codigoPrograma;
+    public void setCodigoJuego(Integer codigoJuego) {
+        this.codigoJuego = codigoJuego;
     }
 
     public int getCodigoFicha() {
@@ -91,6 +97,14 @@ public class ProgramaAprendices implements Serializable {
         this.nombreAprendiz = nombreAprendiz;
     }
 
+    public int getPuntajeAprendiz() {
+        return puntajeAprendiz;
+    }
+
+    public void setPuntajeAprendiz(int puntajeAprendiz) {
+        this.puntajeAprendiz = puntajeAprendiz;
+    }
+
     public Cuestionario getCodigoCuestionario() {
         return codigoCuestionario;
     }
@@ -102,7 +116,7 @@ public class ProgramaAprendices implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigoPrograma != null ? codigoPrograma.hashCode() : 0);
+        hash += (codigoJuego != null ? codigoJuego.hashCode() : 0);
         return hash;
     }
 
@@ -113,7 +127,7 @@ public class ProgramaAprendices implements Serializable {
             return false;
         }
         ProgramaAprendices other = (ProgramaAprendices) object;
-        if ((this.codigoPrograma == null && other.codigoPrograma != null) || (this.codigoPrograma != null && !this.codigoPrograma.equals(other.codigoPrograma))) {
+        if ((this.codigoJuego == null && other.codigoJuego != null) || (this.codigoJuego != null && !this.codigoJuego.equals(other.codigoJuego))) {
             return false;
         }
         return true;
@@ -121,7 +135,7 @@ public class ProgramaAprendices implements Serializable {
 
     @Override
     public String toString() {
-        return "clases.ProgramaAprendices[ codigoPrograma=" + codigoPrograma + " ]";
+        return "clases.ProgramaAprendices[ codigoJuego=" + codigoJuego + " ]";
     }
     
 }
