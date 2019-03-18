@@ -8,7 +8,9 @@ package persistencia;
 import clases.ProgramaAprendices;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +29,17 @@ public class ProgramaAprendicesFacade extends AbstractFacade<ProgramaAprendices>
 
     public ProgramaAprendicesFacade() {
         super(ProgramaAprendices.class);
+    }
+    
+    public ProgramaAprendices consultarAprendiz(String nombreAprendiz) {
+        String consultas = "select apren from ProgramaAprendices apren where apren.nombreAprendiz = '" + nombreAprendiz + "'";
+        try {
+            Query query = em.createQuery(consultas);
+            return (ProgramaAprendices) query.getSingleResult();
+        } catch (NoResultException u) {
+
+            return null;
+        }
     }
     
 }
