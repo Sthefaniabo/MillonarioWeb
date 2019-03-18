@@ -451,5 +451,11 @@ public class vistaUsuarios {
             passUsuario.setValue(usuSeleccionado.getClaveUsuario());
         }
     }
+    
+    public void limpiarLogin(){
+        
+        getTxtDocumentoUsuario().setValue("");
+        getPassUsuario().setValue("");
+    }
 
 }

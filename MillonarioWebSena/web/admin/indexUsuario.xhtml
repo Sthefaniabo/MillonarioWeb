@@ -7,7 +7,7 @@
 
     <f:view contentType="text/html">
         <h:head>
-            
+
         </h:head>
         <h:body>
 
@@ -41,11 +41,11 @@
                         <p:panelGrid id="panelUsuarios" columns="2">
                             <p:outputLabel value="Tipo de Identificación:"/>
                             <p:selectOneMenu id="cmbIdentificacion" required="true" binding="#{vistaUsuarios.cmbIndentificacion}" requiredMessage="Debe seleccionar una identificacion" >
-                                  <f:selectItem itemLabel="Seleccione" itemValue="0"/>
-                                  <f:selectItem itemLabel="Cedula de ciudadania" itemValue="Cedula de ciudadania"/>
-                                  <f:selectItem itemLabel="Tarjeta de identidad" itemValue="Tarjeta de identidad"/>
-                                  <f:selectItem itemLabel="Tarjeta pasaporte" itemValue="Tarjeta pasaporte"/>
-                                  <f:selectItem itemLabel="Cedula de extranjeria" itemValue="Cedula de extranjeria"/>
+                                <f:selectItem itemLabel="Seleccione" itemValue="0"/>
+                                <f:selectItem itemLabel="Cedula de ciudadania" itemValue="Cedula de ciudadania"/>
+                                <f:selectItem itemLabel="Tarjeta de identidad" itemValue="Tarjeta de identidad"/>
+                                <f:selectItem itemLabel="Tarjeta pasaporte" itemValue="Tarjeta pasaporte"/>
+                                <f:selectItem itemLabel="Cedula de extranjeria" itemValue="Cedula de extranjeria"/>
                             </p:selectOneMenu>
                             <p:outputLabel value="Número de identificación:"/>
                             <p:inputText id="txtNumeroUsuario" binding="#{vistaUsuarios.txtDocumentoUsuario}" />
@@ -61,11 +61,11 @@
                             <p:inputText id="txtCorreoUsu" binding="#{vistaUsuarios.txtCorreoUsu}" />
                             <p:outputLabel value="Permisos:"/>
                             <p:selectOneMenu id="cmbPermisos" required="true" binding="#{vistaUsuarios.cmbPermisosUsu}" requiredMessage="Debe seleccionar un tipo" >
-                                  <f:selectItem itemLabel="Seleccione" itemValue="0"/>
-                                  <f:selectItem itemLabel="Administrador" itemValue="Administrador"/>
-                                  <f:selectItem itemLabel="Instructor" itemValue="Instructor"/>
-                                  <f:selectItem itemLabel="Coordinador" itemValue="Coordinador"/>
-                                  <f:selectItem itemLabel="Funcionario" itemValue="Funcionario"/>
+                                <f:selectItem itemLabel="Seleccione" itemValue="0"/>
+                                <f:selectItem itemLabel="Administrador" itemValue="Administrador"/>
+                                <f:selectItem itemLabel="Instructor" itemValue="Instructor"/>
+                                <f:selectItem itemLabel="Coordinador" itemValue="Coordinador"/>
+                                <f:selectItem itemLabel="Funcionario" itemValue="Funcionario"/>
                             </p:selectOneMenu>
                             <p:outputLabel value="Clave:"/>
                             <p:password id="passClaveUsu" binding="#{vistaUsuarios.passUsuario}" />
@@ -73,9 +73,15 @@
                         <p:commandButton value="Registrar" id="btnRegistrar" binding="#{vistaUsuarios.btnRegistrar}" actionListener="#{vistaUsuarios.registrarUsu()}" update="FormularioUsuarios,tablausuario"/>
                         <p:commandButton value="Modificar" id="btnActualizar" binding="#{vistaUsuarios.btnModificar}" actionListener="#{vistaUsuarios.modificarUsu()}" update="FormularioUsuarios,tablausuario"/>
                         <p:commandButton value="Limpiar" id="btnLimpiar" binding="#{vistaUsuarios.btnLimpiar}" actionListener="#{vistaUsuarios.limpiar()}" update="FormularioUsuarios,tablausuario"/>
-                        <p:commandButton value="Eliminar" id="btnEliminar" binding="#{vistaUsuarios.btnEliminar}" actionListener="#{vistaUsuarios.eliminarUsu()}" update="FormularioUsuarios,tablausuario"/>
-                
-                        
+                        <p:commandButton value="Eliminar" id="btnEliminar" binding="#{vistaUsuarios.btnEliminar}" actionListener="#{vistaUsuarios.eliminarUsu()}" update="FormularioUsuarios,tablausuario">
+                            <p:confirm header="Confirmar" message="¿Está seguro de Elimimar?"/>
+                        </p:commandButton>
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" />
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" />
+                        </p:confirmDialog> 
+
+
                         <p:dataTable id="tablausuario" var="user" value="#{vistaUsuarios.listaUsu}" selectionMode="single" rowKey="#{user.codigoUsuario}"
                                      selection="#{vistaUsuarios.usuSeleccionado}" rows="5" paginator="true" rowsPerPageTemplate="5,10,15">
                             <p:ajax event="rowSelect" listener="#{vistaUsuarios.seleccionarUsu}" update=":FormularioUsuarios"/>
@@ -94,27 +100,27 @@
                             <p:column headerText="Nombre">
                                 <h:outputText value="#{user.nombreUsuario}" />
                             </p:column>
-                            
+
                             <p:column headerText="Apellido">
                                 <h:outputText value="#{user.apellidoUsuario}" />
                             </p:column>
-                            
+
                             <p:column headerText="Dirección">
                                 <h:outputText value="#{user.direccionUsuario}" />
                             </p:column>
-                            
+
                             <p:column headerText="Telefono">
                                 <h:outputText value="#{user.telefonoUsuario}" />
                             </p:column>
-                            
+
                             <p:column headerText="Correo">
                                 <h:outputText value="#{user.correoUsuario}" />
                             </p:column>
-                            
+
                             <p:column headerText="Permisos">
                                 <h:outputText value="#{user.permisoUsuario}" />
                             </p:column>
-                            
+
                             <p:column headerText="Clave">
                                 <h:outputText value="#{user.claveUsuario}" />
                             </p:column>

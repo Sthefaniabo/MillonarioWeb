@@ -8,7 +8,9 @@ package persistencia;
 import clases.Cuestionario;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +29,17 @@ public class CuestionarioFacade extends AbstractFacade<Cuestionario> {
 
     public CuestionarioFacade() {
         super(Cuestionario.class);
+    }
+    
+     public Cuestionario consultarIngreso(String codigoIngresoCuestionario) {
+        String consultas = "select cuest from Cuestionario cuest where cuest.codigoIngresoCuestionario = '" + codigoIngresoCuestionario + "'";
+        try {
+            Query query = em.createQuery(consultas);
+            return (Cuestionario) query.getSingleResult();
+        } catch (NoResultException u) {
+
+            return null;
+        }
     }
     
 }
