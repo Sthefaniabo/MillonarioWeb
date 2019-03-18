@@ -251,7 +251,7 @@ public class VistaPregunta {
         getTxtOpcionD_pregunta().setValue("");
         getTxtPuntaje_Pregunta().setValue("");
         getTxtOpcionCorrecta_pregunta().setValue("");
-        getCmbCodigo_usuario_pregunta().setValue("");
+//        getCmbCodigo_usuario_pregunta().setValue("");
 
     }
     
@@ -271,9 +271,10 @@ public class VistaPregunta {
         nuevaPregunta.setOpcionDpregunta(getTxtOpcionD_pregunta().getValue().toString());
         nuevaPregunta.setOpcionCorrectapregunta(getTxtOpcionCorrecta_pregunta().getValue().toString());
         nuevaPregunta.setPuntajePregunta(Integer.parseInt(getTxtPuntaje_Pregunta().getValue().toString()));
-        int codigo = Integer.parseInt(cmbCodigo_usuario_pregunta.getValue().toString());
-        Usuario user = usuarioPersistencia.find(codigo);
-        nuevaPregunta.setCodigoUsuarioPregunta(user);
+//        Usuario logueado = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+////        int codigo = Integer.parseInt(cmbCodigo_usuario_pregunta.getValue().toString());
+////        Usuario user = usuarioPersistencia.find(codigo);
+//        nuevaPregunta.setCodigoUsuarioPregunta(logueado);
 
         getPreguntaPersistencia().create(nuevaPregunta);
 

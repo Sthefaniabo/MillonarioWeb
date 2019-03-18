@@ -408,7 +408,7 @@ public class vistaUsuarios {
                             pagina = "admin/indexPregunta.xhtml";
                         }else{
                             if(logueado.getPermisoUsuario().equals("Instructor")){
-                                pagina = "admin/indexCuestionario.xhtml";
+                                pagina = "admin/indexPreguntaCuestionario.xhtml";
                             }else{
                                 if(logueado.getPermisoUsuario().equals("Funcionario")){
                                     pagina = "admin/indexCuestionario.xhtml";

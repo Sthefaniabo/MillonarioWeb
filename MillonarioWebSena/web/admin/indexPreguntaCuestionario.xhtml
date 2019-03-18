@@ -22,6 +22,7 @@
                 </p:layoutUnit>
 
                 <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
+                    <h:form>
                     <p:menu>
                         <p:submenu label="Resources">
                             <p:menuitem value="Demo" url="http://www.primefaces.org/showcase-labs/ui/home.jsf" />
@@ -32,12 +33,13 @@
                         </p:submenu>
 
                     </p:menu>
+                    </h:form>
                 </p:layoutUnit>
 
 
                 <p:layoutUnit position="center">
-                    <h:form>
-                        <p:dataTable id="Principal" var="Prin" value="#{vistaPreguntaCuestionario.listaPreguntas}"  rowKey="#{Prin.codigoPregunta}" selection="#{vistaPreguntaCuestionario.preguntaSeleccionada}" >
+                    <h:form id="formularioPregunta">
+                        <p:dataTable id="tablaPrincipal" var="Prin" value="#{vistaPreguntaCuestionario.listaPreguntas}"  rowKey="#{Prin.codigoPregunta}" selection="#{vistaPreguntaCuestionario.preguntaSeleccionada}" >
                             <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
                             <p:column headerText="Codigo.">
                                 <h:outputText value="#{Prin.codigoPregunta}" />
@@ -71,11 +73,11 @@
 
 
                         <p:commandButton value="Añadir" action="#{vistaPreguntaCuestionario.anadir()}"
-                                         update="Secundario,Principal"/>
+                                         update="tablaSecundaria,tablaPrincipal"/>
 
 
 
-                        <p:dataTable id="Secundario" var="Sec" value="#{vistaPreguntaCuestionario.nuevalistaPreguntas}">
+                        <p:dataTable id="tablaSecundaria" var="Sec" value="#{vistaPreguntaCuestionario.nuevalistaPreguntas}">
                             <p:column headerText="Codigo">
                                 <h:outputText value="#{Sec.codigoPregunta}" />
                             </p:column>    
@@ -101,11 +103,47 @@
 
                         </p:dataTable>
 
+                        <center>
+                       <p:commandButton value="Crear Pregunta" type="button" onclick="PF('dlg3').show();" />
+                       <p:dialog header="Effects" widgetVar="dlg3" showEffect="explode" hideEffect="bounce" height="50%" >
+                            <h:form id="formularioPregunta">
+                            <p:messages id="mensajes" showDetail="true" closable="true"><!-- clasable para que pueda ceerar el mensaje-->
+                                <!-- se crean todos los elementos del formulario -->
+                            </p:messages>
+
+                            <p:panelGrid id="tablaPregunta" columns="2" >
+                             
+                                <p:outputLabel value="PREGUNTA"/>
+                                <p:inputText id="txtPregunta" binding="#{vistaPregunta.txtPregunta}" style="width:560px" />
+                          
+                                <p:outputLabel value="RESPUESTA A"/>
+                                <p:inputText id="txtOpcionA_pregunta" binding="#{vistaPregunta.txtOpcionA_pregunta}" style="width:560px"/>
+
+                                <p:outputLabel value="RESPUESTA B"/>
+                                <p:inputText id="txtOpcionB_pregunta" binding="#{vistaPregunta.txtOpcionB_pregunta}" style="width:560px"/>
+
+                                <p:outputLabel value="RESPUESTA C"/>
+                                <p:inputText id="txtOpcionC_pregunta" binding="#{vistaPregunta.txtOpcionC_pregunta}" style="width:560px"/>
+
+                                <p:outputLabel value="RESPUESTA D"/>
+                                <p:inputText id="txtOpcionD_pregunta" binding="#{vistaPregunta.txtOpcionD_pregunta}" style="width:560px"/>
+                                
+                                <p:outputLabel value="RESPUESTA CORRCTA" />
+                                <p:inputText id="txtOpcionCorrecta_pregunta" binding="#{vistaPregunta.txtOpcionCorrecta_pregunta}" style="width:560px"/>
+
+                                <p:outputLabel value="PUNTAJE"/>
+                                <p:inputText id="txtPuntaje_Pregunta" binding="#{vistaPregunta.txtPuntaje_Pregunta}" style="width:260px" placeholder="****************"/>
 
 
-                        <p:button value="Crear">
-                        </p:button>
+                                <p:commandButton value="Guardar" id="btnRegistrar" binding="#{vistaPregunta.btnRegistrar}" actionListener="#{vistaPregunta.registrarPregunta()}" update="formularioPregunta" />
 
+                                <p:commandButton value="Limpiar" id="btnLimpiar" binding="#{vistaPregunta.btnLimpiar}" actionListener="#{vistaPregunta.limpiar()}" update="formularioPregunta" />
+        
+                            </p:panelGrid>
+
+                        </h:form>
+                     </p:dialog>
+                    </center>
 
 
                     </h:form>
