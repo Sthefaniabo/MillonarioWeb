@@ -78,7 +78,7 @@
                         
                         <p:dataTable id="tablausuario" var="user" value="#{vistaUsuarios.listaUsu}" selectionMode="single" rowKey="#{user.codigoUsuario}"
                                      selection="#{vistaUsuarios.usuSeleccionado}" rows="5" paginator="true" rowsPerPageTemplate="5,10,15">
-                            <p:ajax event="rowSelect" listener="#{vistaUsuarios.usuSeleccionado}" update=":FormularioUsuarios"/>
+                            <p:ajax event="rowSelect" listener="#{vistaUsuarios.seleccionarUsu}" update=":FormularioUsuarios"/>
                             <p:column headerText="Codigo usuario">
                                 <h:outputText value="#{user.codigoUsuario}" />
                             </p:column>

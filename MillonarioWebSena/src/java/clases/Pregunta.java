@@ -35,13 +35,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Pregunta.findAll", query = "SELECT p FROM Pregunta p")
-    , @NamedQuery(name = "Pregunta.findByCodigoPregunta", query = "SELECT p FROM Pregunta p WHERE p.codigoPregunta = :codigoPregunta")})
+    , @NamedQuery(name = "Pregunta.findByCodigoPregunta", query = "SELECT p FROM Pregunta p WHERE p.codigoPregunta = :codigoPregunta")
+    , @NamedQuery(name = "Pregunta.findByPuntajePregunta", query = "SELECT p FROM Pregunta p WHERE p.puntajePregunta = :puntajePregunta")})
 public class Pregunta implements Serializable {
-
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "puntaje_pregunta")
-    private int puntajePregunta;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -85,6 +81,10 @@ public class Pregunta implements Serializable {
     @Size(min = 1, max = 2147483647)
     @Column(name = "opcionCorrecta_pregunta")
     private String opcionCorrectapregunta;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "puntaje_pregunta")
+    private int puntajePregunta;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoPregunta")
     private List<PreguntaCuestionario> preguntaCuestionarioList;
     @JoinColumn(name = "codigo_usuario_pregunta", referencedColumnName = "codigo_usuario")
@@ -98,7 +98,7 @@ public class Pregunta implements Serializable {
         this.codigoPregunta = codigoPregunta;
     }
 
-    public Pregunta(Integer codigoPregunta, String pregunta, String opcionApregunta, String opcionBpregunta, String opcionCpregunta, String opcionDpregunta, String opcionCorrectapregunta) {
+    public Pregunta(Integer codigoPregunta, String pregunta, String opcionApregunta, String opcionBpregunta, String opcionCpregunta, String opcionDpregunta, String opcionCorrectapregunta, int puntajePregunta) {
         this.codigoPregunta = codigoPregunta;
         this.pregunta = pregunta;
         this.opcionApregunta = opcionApregunta;
@@ -106,6 +106,7 @@ public class Pregunta implements Serializable {
         this.opcionCpregunta = opcionCpregunta;
         this.opcionDpregunta = opcionDpregunta;
         this.opcionCorrectapregunta = opcionCorrectapregunta;
+        this.puntajePregunta = puntajePregunta;
     }
 
     public Integer getCodigoPregunta() {
@@ -164,6 +165,14 @@ public class Pregunta implements Serializable {
         this.opcionCorrectapregunta = opcionCorrectapregunta;
     }
 
+    public int getPuntajePregunta() {
+        return puntajePregunta;
+    }
+
+    public void setPuntajePregunta(int puntajePregunta) {
+        this.puntajePregunta = puntajePregunta;
+    }
+
     @XmlTransient
     public List<PreguntaCuestionario> getPreguntaCuestionarioList() {
         return preguntaCuestionarioList;
@@ -204,14 +213,6 @@ public class Pregunta implements Serializable {
     @Override
     public String toString() {
         return "clases.Pregunta[ codigoPregunta=" + codigoPregunta + " ]";
-    }
-
-    public int getPuntajePregunta() {
-        return puntajePregunta;
-    }
-
-    public void setPuntajePregunta(int puntajePregunta) {
-        this.puntajePregunta = puntajePregunta;
     }
     
 }

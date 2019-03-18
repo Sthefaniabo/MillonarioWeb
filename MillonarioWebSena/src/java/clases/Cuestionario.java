@@ -36,7 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Cuestionario.findAll", query = "SELECT c FROM Cuestionario c")
     , @NamedQuery(name = "Cuestionario.findByCodigoCuestionario", query = "SELECT c FROM Cuestionario c WHERE c.codigoCuestionario = :codigoCuestionario")
     , @NamedQuery(name = "Cuestionario.findByNombreCuestionario", query = "SELECT c FROM Cuestionario c WHERE c.nombreCuestionario = :nombreCuestionario")
-    , @NamedQuery(name = "Cuestionario.findByInstructorCuestionario", query = "SELECT c FROM Cuestionario c WHERE c.instructorCuestionario = :instructorCuestionario")})
+    , @NamedQuery(name = "Cuestionario.findByInstructorCuestionario", query = "SELECT c FROM Cuestionario c WHERE c.instructorCuestionario = :instructorCuestionario")
+    , @NamedQuery(name = "Cuestionario.findByCodigoIngresoCuestionario", query = "SELECT c FROM Cuestionario c WHERE c.codigoIngresoCuestionario = :codigoIngresoCuestionario")})
 public class Cuestionario implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -55,6 +56,11 @@ public class Cuestionario implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "instructor_cuestionario")
     private String instructorCuestionario;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "codigo_ingreso_cuestionario")
+    private String codigoIngresoCuestionario;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoCuestionario")
     private List<ProgramaAprendices> programaAprendicesList;
     @JoinColumn(name = "codigo_cuestionario", referencedColumnName = "codigo_usuario", insertable = false, updatable = false)
@@ -70,10 +76,11 @@ public class Cuestionario implements Serializable {
         this.codigoCuestionario = codigoCuestionario;
     }
 
-    public Cuestionario(Integer codigoCuestionario, String nombreCuestionario, String instructorCuestionario) {
+    public Cuestionario(Integer codigoCuestionario, String nombreCuestionario, String instructorCuestionario, String codigoIngresoCuestionario) {
         this.codigoCuestionario = codigoCuestionario;
         this.nombreCuestionario = nombreCuestionario;
         this.instructorCuestionario = instructorCuestionario;
+        this.codigoIngresoCuestionario = codigoIngresoCuestionario;
     }
 
     public Integer getCodigoCuestionario() {
@@ -98,6 +105,14 @@ public class Cuestionario implements Serializable {
 
     public void setInstructorCuestionario(String instructorCuestionario) {
         this.instructorCuestionario = instructorCuestionario;
+    }
+
+    public String getCodigoIngresoCuestionario() {
+        return codigoIngresoCuestionario;
+    }
+
+    public void setCodigoIngresoCuestionario(String codigoIngresoCuestionario) {
+        this.codigoIngresoCuestionario = codigoIngresoCuestionario;
     }
 
     @XmlTransient

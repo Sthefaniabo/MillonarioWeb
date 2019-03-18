@@ -430,7 +430,7 @@ public class vistaUsuarios {
     public void cerrarSesion() {
         try {
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("usuario");
-            FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("../index.xhtml");
         } catch (IOException ex) {
             Logger.getLogger(vistaUsuarios.class.getName()).log(Level.SEVERE, null, ex);
         }
