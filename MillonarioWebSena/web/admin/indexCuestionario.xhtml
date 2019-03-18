@@ -1,16 +1,99 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            
+        </h:head>
+        <h:body>
+
+            <p:layout fullPage="true">
+                
+                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
+                   Creacion del Cuestionario  
+                </p:layoutUnit>
+
+                <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
+                    Creado por A.D.S.I
+                </p:layoutUnit>
+
+                <p:layoutUnit position="west" size="175" header="Left" collapsible="true" >
+                    <h:form>
+                        <p:menu>
+                            <p:menuitem value="Inicio" url="index.xhtml" />
+                            <p:menuitem value="Usuarios" url="indexUsuario.xhtml"/>
+                            <p:menuitem value="Cuestionario" url="indexCuestionario.xhtml" />
+                            <p:menuitem value="Preguntas" url="indexPregunta.xhtml" />
+                            <p:menuitem value="Programa Aprendices" url="indexProgramaAprendiz.xhtml" />
+                            <!--<p:menuitem value="Cerrar sesion" action="#{vistaUsuario.cerrarSesion()}" />-->
+                            
+
+                        </p:menu>
+                    </h:form>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="center">
+
+                    <h:form id="FormularioCuestionario">
+                        <p:messages id="mensajes" showDetail="true" closable="true"><!-- clasable para que pueda ceerar el mensaje-->
+                            <!-- se crean todos los elementos del formulario -->
+                        </p:messages>
+
+                        <p:panelGrid id="panelCuestionario" columns="2">
+                            
+                            <p:outputLabel value="Nombre del cuestionario:"/>
+                                <p:inputText id="txtNombreCuestionario" binding="#{vistaCuestionario.txtNombreCuestionario}" requiredMessage="Debes colocar el nombre del cuestionario" />
+                            <p:outputLabel value="Codigo del cuestionario"/>
+                                <p:inputText id="txtCodigoCuestionario" binding="#{vistaCuestionario.txtCodigoCuestionario}" requiredMessage="Debes colocar el codigo del cuestionario" placeholder="# Aleatorio..."/>
+                            <p:outputLabel value="Instructor:" />
+                            <p:selectOneMenu id="cmbInstructorCuestionario" required="true" binding="#{vistaCuestionario.cmbInstructorCuestionario}" requiredMessage="Debes seleccionar un instructor" >
+                                <f:selectItem itemLabel="Seleccione..." itemValue="null"/>
+                                <f:selectItems value="#{vistaCuestionario.itemsCuestionario}"/>
+                            </p:selectOneMenu>
+     
+                        </p:panelGrid>
+                        <p:commandButton value="Registrar" id="btnRegistrar" binding="#{vistaCuestionario.btnRegistrar}" 
+                                         actionListener="#{vistaCuestionario.registrar()}" update="FormularioCuestionario,tablacuestionario"/>
+                        
+                        <p:commandButton value="Modificar" id="btnModificar" binding="#{vistaCuestionario.btnModificar}" 
+                                         actionListener="#{vistaCuestionario.modificar}" update="FormularioCuestionario,tablacuestionario" />
+                        <p:commandButton value="Limpiar" id="btnLimpiar" binding="#{vistaCuestionario.btnLimpiar}" 
+                                         actionListener="#{vistaCuestionario.limpiar()}" update="FormularioCuestionario,tablacuestionario"/>
+                        
+                        <p:commandButton value="Eliminar" id="btnEliminar" binding="#{vistaCuestionario.btnEliminar}" 
+                                         actionListener="#{vistaCuestionario.eliminar()}" update="FormularioCuestionario,tablacuestionario">
+                            <p:confirm header="Confirmar" message="¿Está seguro de Elimimar?"/>
+                        </p:commandButton>
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" />
+                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" />
+                            </p:confirmDialog> 
+                            
+                        <p:commandButton value="Registrar Aprendiz" id="btnRegistrarAprendiz" binding="#{vistaCuestionario.btnRegistrarAprendices}" actionListener="#{vistaCuestionario.registrarAprendices()}" />
+                
+                        
+                        <p:dataTable id="tablacuestionario" var="cues" value="#{vistaCuestionario.listaCuestionario}" selectionMode="single" rowKey="#{cues.codigoCuestionario}"
+                                     selection="#{vistaCuestionario.cuestionarioSeleccionado}" rows="5" paginator="true" rowsPerPageTemplate="5,10,15">
+                            <p:ajax event="rowSelect" listener="#{vistaCuestionario.seleccionarCuestionario}" update=":FormularioCuestionario"/>
+                            <p:column headerText="Codigo Cuestionario">
+                                <h:outputText value="#{cues.codigoCuestionario}" />
+                            </p:column>
+
+                            <p:column headerText="Nombre Cuestionario">
+                                <h:outputText value="#{cues.nombreCuestionario}" />
+                            </p:column>
+
+                            <p:column headerText="Instructor Cuestionario">
+                                <h:outputText value="#{cues.instructorCuestionario}" />
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </p:layoutUnit>
+            </p:layout>
+        </h:body>
+    </f:view>
 </html>
