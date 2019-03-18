@@ -36,6 +36,7 @@ public class VistaPregunta {
     private PreguntaFacade preguntaPersistencia;
     @EJB
     private UsuarioFacade usuarioPersistencia;
+    
 
     private List<Usuario> listaUsuario;
     private List<Pregunta> listaPregunta;
@@ -53,39 +54,21 @@ public class VistaPregunta {
     private CommandButton btnLimpiar;
     private CommandButton btnVolver;
     private ArrayList<SelectItem> itemsUsuarios;
+         
+    private List<Pregunta> listaPreguntas;
+    private List<Pregunta> NuevalistaPreguntas = new ArrayList<>();
+    private List<Pregunta> preguntaSeleccionada;
+  
+    private CommandButton btnCrear;
+    private CommandButton btnAnadir;
+    /**
+     * Creates a new instance of VistaPreguntaCuestionario
+     */
 
     /**
      * Creates a new instance of VistaPregunta
      */
     public VistaPregunta() {
-    }
-
-    /**
-     * @return the preguntaPersistencia
-     */
-    public PreguntaFacade getPreguntaPersistencia() {
-        return preguntaPersistencia;
-    }
-
-    /**
-     * @param preguntaPersistencia the preguntaPersistencia to set
-     */
-    public void setPreguntaPersistencia(PreguntaFacade preguntaPersistencia) {
-        this.preguntaPersistencia = preguntaPersistencia;
-    }
-
-    /**
-     * @return the usuarioPersistencia
-     */
-    public UsuarioFacade getUsuarioPersistencia() {
-        return usuarioPersistencia;
-    }
-
-    /**
-     * @param usuarioPersistencia the usuarioPersistencia to set
-     */
-    public void setUsuarioPersistencia(UsuarioFacade usuarioPersistencia) {
-        this.usuarioPersistencia = usuarioPersistencia;
     }
 
     /**
@@ -276,7 +259,7 @@ public class VistaPregunta {
 ////        Usuario user = usuarioPersistencia.find(codigo);
 //        nuevaPregunta.setCodigoUsuarioPregunta(logueado);
 
-        getPreguntaPersistencia().create(nuevaPregunta);
+        preguntaPersistencia.create(nuevaPregunta);
 
         limpiar();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Notificación", "¡pregunta registrada correctamente!"));
@@ -286,7 +269,7 @@ public class VistaPregunta {
      * @return the listaUsuario
      */
     public List<Usuario> getListaUsuario() {
-        listaUsuario = getUsuarioPersistencia().findAll();
+        listaUsuario = usuarioPersistencia.findAll();
         return listaUsuario;
     }
 
@@ -347,5 +330,115 @@ public class VistaPregunta {
     public void setBtnVolver(CommandButton btnVolver) {
         this.btnVolver = btnVolver;
     }
+    
+     public PreguntaFacade getPreguntaPersistencia() {
+        return preguntaPersistencia;
+    }
 
+    /**
+     * @param preguntaPersistencia the preguntaPersistencia to set
+     */
+    public void setPreguntaPersistencia(PreguntaFacade preguntaPersistencia) {
+        this.preguntaPersistencia = preguntaPersistencia;
+    }
+
+    /**
+     * @return the listaPreguntas
+     */
+    public List<Pregunta> getListaPreguntas() {
+        if(listaPreguntas==null){
+            listaPreguntas=preguntaPersistencia.findAll();//trae todo lo de la base de datos
+        }
+        return listaPreguntas;
+    }
+
+    /**
+     * @param listaPreguntas the listaPreguntas to set
+     */
+    public void setListaPreguntas(List<Pregunta> listaPreguntas) {
+        this.listaPreguntas = listaPreguntas;
+    }
+
+    /**
+     * @return the NuevalistaPreguntas
+     */
+    public List<Pregunta> getNuevalistaPreguntas() {
+        return NuevalistaPreguntas;
+    }
+
+    /**
+     * @param NuevalistaPreguntas the NuevalistaPreguntas to set
+     */
+    public void setNuevalistaPreguntas(List<Pregunta> NuevalistaPreguntas) {
+        this.NuevalistaPreguntas = NuevalistaPreguntas;
+    }
+
+    /**
+     * @return the preguntaSeleccionada
+     */
+    public List<Pregunta> getPreguntaSeleccionada() {
+        return preguntaSeleccionada;
+    }
+
+    /**
+     * @param preguntaSeleccionada the preguntaSeleccionada to set
+     */
+    public void setPreguntaSeleccionada(List<Pregunta> preguntaSeleccionada) {
+        this.preguntaSeleccionada = preguntaSeleccionada;
+    }
+
+    /**
+     * @return the btnRegistrar
+     */
+
+
+    /**
+     * @return the btnAnadir
+     */
+    public CommandButton getBtnAnadir() {
+        
+        return btnAnadir;
+    }
+
+    /**
+     * @param btnAnadir the btnAnadir to set
+     */
+    public void setBtnAnadir(CommandButton btnAnadir) {
+        this.btnAnadir = btnAnadir;
+    }
+    
+    public void anadir(){
+        System.out.println("Selecciono "+getPreguntaSeleccionada().size());
+        NuevalistaPreguntas.addAll(getPreguntaSeleccionada());
+        listaPreguntas.removeAll(getPreguntaSeleccionada());
+        System.out.println("Nuevo tamaño "+listaPreguntas.size());
+    }
+
+    /**
+     * @return the btnRegistrar
+     */
+    
+
+    /**
+     * @param btnRegistrar the btnRegistrar to set
+     */
+    
+
+    /**
+     * @return the btnCrear
+     */
+    public CommandButton getBtnCrear() {
+        return btnCrear;
+    }
+
+    /**
+     * @param btnCrear the btnCrear to set
+     */
+    public void setBtnCrear(CommandButton btnCrear) {
+        this.btnCrear = btnCrear;
+    }
+    
 }
+
+
+
