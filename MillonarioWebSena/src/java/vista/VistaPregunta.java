@@ -273,7 +273,7 @@ public class VistaPregunta {
         nuevaPregunta.setPuntajePregunta(Integer.parseInt(getTxtPuntaje_Pregunta().getValue().toString()));
         int codigo = Integer.parseInt(cmbCodigo_usuario_pregunta.getValue().toString());
         Usuario user = usuarioPersistencia.find(codigo);
-        nuevaPregunta.setCodigoUsuarioPregunta(user);
+       
 
         getPreguntaPersistencia().create(nuevaPregunta);
 
