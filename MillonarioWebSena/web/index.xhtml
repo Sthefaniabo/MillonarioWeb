@@ -15,41 +15,47 @@
 
         <h:body>
 
+
             <p:layout fullPage="true">
 
-                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
-                    Ejemplo de usuario
-                </p:layoutUnit>
+
 
                 <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
-                    Creado por Sthefania - ADSI
+                    <div align="center" class="banner" >
+                        <h:graphicImage url="img/bannerHovi.jpg" width="100%" height="100%" alt="LogoMillonario"  />
+                    </div>
                 </p:layoutUnit>
 
-               
+
                 <p:layoutUnit position="center">
 
                     <h:form id="FormularioUsuario">
-                   
-                            <div align="center"> 
-                        <p:messages showDetail="true" /> 
-                        <p:panelGrid id="panelUsuario" columns="2">
-                            <f:facet name="header">  
-                                Ingreso de Usuarios  
-                            </f:facet>  
-                            <h:outputText value="Usuario:"/>
-                            <p:inputText id="txtNumeroUsuario" required="true" requiredMessage="El nombre de usuario es obligatorio" binding="#{vistaUsuarios.txtDocumentoUsuario}" />
-                            
-                            <h:outputText value="Contraseña:"/>
-                            <p:password id="passClaveUsu" required="true" requiredMessage="La clave es obligatoria" binding="#{vistaUsuarios.passUsuario}" /> 
-                            <f:facet name="footer"> 
-                                <div align="center"> 
-                                    <p:commandButton value="Ingresar" id="btnIngresar" action="#{vistaUsuarios.ingresar_usu()}" update="FormularioUsuario"/>
-                                    <p:commandButton value="Limpiar" id="btnLimpiar" action="#{vistaUsuarios.limpiarLogin()}" update="FormularioUsuario"/>
-                                </div>
-                            </f:facet>  
-                        </p:panelGrid>
-                    </div>   
-                        
+
+                        <div align="center">
+                            <h:graphicImage url="img/banner.jpg" width="100%" height="100%" alt="LOGO MILLONARIO"  />
+                        </div>
+
+                        <div align="center"> 
+                            <p:messages showDetail="true" /> 
+                            <p:panelGrid id="panelUsuario" columns="2">
+                                <f:facet name="header">  
+                                    Ingreso de Usuarios  
+                                </f:facet>  
+                                <h:outputText value="Usuario:"/>
+                                <p:inputText id="txtNumeroUsuario" required="true" requiredMessage="El nombre de usuario es obligatorio" binding="#{vistaUsuarios.txtDocumentoUsuario}" />
+
+                                <h:outputText value="Contraseña:"/>
+                                <p:password id="passClaveUsu" required="true" requiredMessage="La clave es obligatoria" binding="#{vistaUsuarios.passUsuario}" /> 
+                                <f:facet name="footer"> 
+                                    <div align="center"> 
+                                        <p:commandButton value="Ingresar" id="btnIngresar" action="#{vistaUsuarios.ingresar_usu()}" update="FormularioUsuario"/>
+                                        <p:commandButton value="Limpiar" id="btnLimpiar" action="#{vistaUsuarios.limpiarLogin()}" update="FormularioUsuario"/>
+                                        <p:commandButton value="Jugar" id="btnJugar" action="#{vistaUsuarios.jugar()}" update="FormularioUsuario"/>
+                                    </div>
+                                </f:facet>  
+                            </p:panelGrid>
+                        </div>   
+
                     </h:form>
                 </p:layoutUnit>
 

@@ -47,8 +47,8 @@
                             
                             <p:outputLabel value="Nombre del cuestionario:"/>
                                 <p:inputText id="txtNombreCuestionario" binding="#{vistaCuestionario.txtNombreCuestionario}" requiredMessage="Debes colocar el nombre del cuestionario" />
-                            <p:outputLabel value="Codigo del cuestionario"/>
-                                <p:inputText id="txtCodigoCuestionario" binding="#{vistaCuestionario.txtCodigoCuestionario}" requiredMessage="Debes colocar el codigo del cuestionario" placeholder="# Aleatorio..."/>
+                            <p:outputLabel value="No. del cuestionario"/>
+                            <p:inputText id="txtCodigoIngresoCuestionario" binding="#{vistaCuestionario.txtCodigoIngresoCuestionario}" requiredMessage="···········" placeholder="# Aleatorio..."/>
                             <p:outputLabel value="Instructor:" />
                             <p:selectOneMenu id="cmbInstructorCuestionario" required="true" binding="#{vistaCuestionario.cmbInstructorCuestionario}" requiredMessage="Debes seleccionar un instructor" >
                                 <f:selectItem itemLabel="Seleccione..." itemValue="null"/>
@@ -89,6 +89,10 @@
 
                             <p:column headerText="Instructor Cuestionario">
                                 <h:outputText value="#{cues.instructorCuestionario}" />
+                            </p:column>
+                            
+                            <p:column headerText="No. del Cuestionario">
+                                <h:outputText value="#{cues.codigoIngresoCuestionario}" />
                             </p:column>
                         </p:dataTable>
                     </h:form>

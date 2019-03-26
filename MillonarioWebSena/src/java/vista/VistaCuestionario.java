@@ -38,6 +38,7 @@ public class VistaCuestionario {
     
     private InputText txtCodigoCuestionario;
     private InputText txtNombreCuestionario;
+    private InputText txtCodigoIngresoCuestionario;
     private SelectOneMenu cmbInstructorCuestionario;
     private CommandButton btnRegistrar;
     private CommandButton btnModificar;
@@ -254,6 +255,21 @@ public class VistaCuestionario {
         this.numeroAleatorio = numeroAleatorio;
     }
     
+     /**
+     * @return the txtCodigoIngresoCuestionario
+     */
+    public InputText getTxtCodigoIngresoCuestionario() {
+        return txtCodigoIngresoCuestionario;
+    }
+
+    /**
+     * @param txtCodigoIngresoCuestionario the txtCodigoIngresoCuestionario to set
+     */
+    public void setTxtCodigoIngresoCuestionario(InputText txtCodigoIngresoCuestionario) {
+        this.txtCodigoIngresoCuestionario = txtCodigoIngresoCuestionario;
+    }
+    
+    
     public void numeroAleatorio(){
         Cuestionario cuesRandom = new Cuestionario();
         cuesRandom.setCodigoCuestionario(Integer.parseInt(txtCodigoCuestionario.getValue().toString()));
@@ -261,70 +277,78 @@ public class VistaCuestionario {
     
     
     public void registrar(){
+        
        Cuestionario nuevoCues = new Cuestionario();
-        nuevoCues.setCodigoCuestionario(Integer.parseInt(txtCodigoCuestionario.getValue().toString()));
+        //nuevoCues.setCodigoCuestionario(Integer.parseInt(txtCodigoCuestionario.getValue().toString()));
         nuevoCues.setNombreCuestionario(txtNombreCuestionario.getValue().toString());//De estas forma capturamos un objeto o un texto pero en String.
         nuevoCues.setInstructorCuestionario(cmbInstructorCuestionario.getValue().toString());
+        nuevoCues.setCodigoIngresoCuestionario(txtCodigoIngresoCuestionario.getValue().toString());
         cuestionarioPersistencia.create(nuevoCues);
         limpiar();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Notificacion", "Cuestionario Registrado"));
+        
     }
     
     
     public void seleccionarCuestionario(SelectEvent evento){
         
-        /*cuestionarioSeleccionado = (Cuestionario) evento.getObject();
-        if (cuestionarioSeleccionado != null) {
-            txtNombreCuestionario.setValue(cuestionarioSeleccionado.getNombreCuestionario());
-            txtCodigoCuestionario.setValue(cuestionarioSeleccionado.getCodigoCuestionario());
-            cmbInstructorCuestionario.setValue(cuestionarioSeleccionado.getInstructorCuestionario());
-        }*/
+       
         cuestionarioSeleccionado = (Cuestionario) evento.getObject();
         txtNombreCuestionario.setValue(cuestionarioSeleccionado.getNombreCuestionario());
-        txtCodigoCuestionario.setValue(cuestionarioSeleccionado.getCodigoCuestionario());
+        txtCodigoIngresoCuestionario.setValue(cuestionarioSeleccionado.getCodigoIngresoCuestionario());
+        cmbInstructorCuestionario.setValue(cuestionarioSeleccionado.getInstructorCuestionario());
         
     }
        
     
     public void modificar(){
         
+        
         Cuestionario cuestionario = cuestionarioSeleccionado;
-        cuestionario.setCodigoCuestionario(Integer.parseInt(txtCodigoCuestionario.getValue().toString()));
+        //cuestionario.setCodigoCuestionario(Integer.parseInt(txtCodigoCuestionario.getValue().toString()));
         cuestionario.setNombreCuestionario(txtNombreCuestionario.getValue().toString());
         cuestionario.setInstructorCuestionario(cmbInstructorCuestionario.getValue().toString());
+        cuestionario.setCodigoIngresoCuestionario(txtCodigoIngresoCuestionario.getValue().toString());
         cuestionarioPersistencia.edit(cuestionario);
         limpiar();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Notificación", "¡Cuestionario modificado correctamente!"));
+        
         
         
     }
     
     
     public void eliminar(){
+         
+        
          Cuestionario cues = cuestionarioSeleccionado;
+         //cues.setCodigoCuestionario(Integer.parseInt(txtCodigoCuestionario.getValue().toString()));
          cues.setNombreCuestionario(txtNombreCuestionario.getValue().toString());   //De estas forma capturamos un objeto o un texto pero en String.
-         cues.setCodigoCuestionario(Integer.parseInt(txtCodigoCuestionario.getValue().toString()));
+         cues.setInstructorCuestionario(cmbInstructorCuestionario.getValue().toString());
+         cues.setCodigoIngresoCuestionario(txtCodigoIngresoCuestionario.getValue().toString());
          cuestionarioPersistencia.remove(cues);
          limpiar();
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Notificacion", "Cuestionario Eliminado Correctamente!!")); 
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Notificacion", "Cuestionario Eliminado Correctamente!!"));
+         
     }
     
     public void limpiar(){
         
-        getTxtCodigoCuestionario().setValue("");
+        
+        //Cada vez que presione el boton de "Limpiar" lo que va a hacer este MEtodo es que me va a dejar los campos en Blanco/Vacios...
+        //getTxtCodigoCuestionario().setValue("");
+        getTxtCodigoIngresoCuestionario().setValue("");
         getTxtNombreCuestionario().setValue("");
         getCmbInstructorCuestionario().setValue("");  
+        
     }
     
     
     public void registrarAprendices() throws IOException{
+        
         //Esta linea de codigo me permite realizar el Direccionamiento a otro Index del mismo proyecto. PARA TENER EN CUENTA.
         FacesContext.getCurrentInstance().getExternalContext().redirect("indexProgramaAprendiz.xhtml");
+        
     }
-
-    
-
-    
-    
-    
+   
 }

@@ -51,6 +51,7 @@ public class vistaUsuarios {
     private CommandButton btnModificar;
     private CommandButton btnEliminar;
     private CommandButton btnLimpiar;
+    private CommandButton btnJugar;
     private Usuario usuSeleccionado;
 
     /**
@@ -408,7 +409,7 @@ public class vistaUsuarios {
                             pagina = "admin/indexPregunta.xhtml";
                         }else{
                             if(logueado.getPermisoUsuario().equals("Instructor")){
-                                pagina = "admin/indexCuestionario.xhtml";
+                                pagina = "admin/indexPreguntaCuestionario.xhtml";
                             }else{
                                 if(logueado.getPermisoUsuario().equals("Funcionario")){
                                     pagina = "admin/indexCuestionario.xhtml";
@@ -456,6 +457,29 @@ public class vistaUsuarios {
         
         getTxtDocumentoUsuario().setValue("");
         getPassUsuario().setValue("");
+    }
+
+    /**
+     * @return the btnJugar
+     */
+    public CommandButton getBtnJugar() {
+        return btnJugar;
+    }
+
+    /**
+     * @param btnJugar the btnJugar to set
+     */
+    public void setBtnJugar(CommandButton btnJugar) {
+        this.btnJugar = btnJugar;
+    }
+    
+    public void jugar(){
+        
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("../indexProgramaAprendiz.xhtml");
+        } catch (IOException ex) {
+            Logger.getLogger(vistaUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

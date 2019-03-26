@@ -41,5 +41,12 @@ public class CuestionarioFacade extends AbstractFacade<Cuestionario> {
             return null;
         }
     }
+     
+     public int cuesAleatorio (Cuestionario cues){
+         getEntityManager().persist(cues);
+         getEntityManager().flush();
+         return cues.getCodigoCuestionario();
+     
+     }
     
 }
