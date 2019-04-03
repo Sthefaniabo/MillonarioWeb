@@ -407,11 +407,11 @@ public class vistaUsuarios {
                     } else {
                         if (logueado.getPermisoUsuario().equals("Coordinador")) {
                             pagina = "admin/indexPregunta.xhtml";
-                        }else{
-                            if(logueado.getPermisoUsuario().equals("Instructor")){
+                        } else {
+                            if (logueado.getPermisoUsuario().equals("Instructor")) {
                                 pagina = "admin/indexPreguntaCuestionario.xhtml";
-                            }else{
-                                if(logueado.getPermisoUsuario().equals("Funcionario")){
+                            } else {
+                                if (logueado.getPermisoUsuario().equals("Funcionario")) {
                                     pagina = "admin/indexCuestionario.xhtml";
                                 }
                             }
@@ -452,9 +452,9 @@ public class vistaUsuarios {
             passUsuario.setValue(usuSeleccionado.getClaveUsuario());
         }
     }
-    
-    public void limpiarLogin(){
-        
+
+    public void limpiarLogin() {
+
         getTxtDocumentoUsuario().setValue("");
         getPassUsuario().setValue("");
     }
@@ -472,9 +472,9 @@ public class vistaUsuarios {
     public void setBtnJugar(CommandButton btnJugar) {
         this.btnJugar = btnJugar;
     }
-    
-    public void jugar(){
-        
+
+    public void jugar() {
+
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("../indexProgramaAprendiz.xhtml");
         } catch (IOException ex) {

@@ -21,23 +21,27 @@
                     Pie de pagina de toda esta weá
                 </p:layoutUnit>
 
-                <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
+                <p:layoutUnit position="west" size="145" header="Menu" collapsible="falses">
                     <h:form>
                     <p:menu>
-                        <p:submenu label="Resources">
-                            <p:menuitem value="Demo" url="http://www.primefaces.org/showcase-labs/ui/home.jsf" />
-                            <p:menuitem value="Documentation" url="http://www.primefaces.org/documentation.html" />
-                            <p:menuitem value="Forum" url="http://forum.primefaces.org/" />
-                            <p:menuitem value="Themes" url="http://www.primefaces.org/themes.html" />
+                            <p:menuitem value="Inicio" url="index.xhtml" />
+                            <p:menuitem value="Usuarios" url="indexUsuario.xhtml"/>
+                            <p:menuitem value="Cuestionario" url="indexCuestionario.xhtml" />
+                            <p:menuitem value="Preguntas" url="indexPregunta.xhtml" />
+                            <p:menuitem value="Programa Aprendices" url="indexProgramaAprendiz.xhtml" />
+                            <p:menuitem value="Cerrar Sesión" action="#{vistaUsuarios.cerrarSesion()}" />
 
-                        </p:submenu>
-
-                    </p:menu>
+                        </p:menu>
                     </h:form>
+                </p:layoutUnit>
+                
+                <p:layoutUnit position="East" size="145" header="Derecha" collapsible="true">
+                    
+                    
                 </p:layoutUnit>
 
 
-                <p:layoutUnit position="center">
+                <p:layoutUnit position="center" >
                     <h:form id="formularioPregunta">
                         <p:dataTable id="tablaPrincipal" var="Prin" value="#{vistaPregunta.listaPreguntas}"  rowKey="#{Prin.codigoPregunta}" selection="#{vistaPregunta.preguntaSeleccionada}" >
                             <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
@@ -64,12 +68,32 @@
                             </p:column>
 
                         </p:dataTable>
-
-
-
-                        <p:button value="Registrar">
-                        </p:button>
-
+                        
+                        
+                        
+                       
+                        <p:panelGrid id="panelCuestionario" columns="2">
+                            
+                            <p:column>
+                                
+                                
+                            </p:column>
+                            
+                            
+                           <p:column>  
+                            <p:outputLabel value="Nombre del cuestionario:"/>
+                                <p:inputText id="txtNombreCuestionario" binding="#{vistaCuestionario.txtNombreCuestionario}" requiredMessage="Debes colocar el nombre del cuestionario" />
+                            <p:outputLabel value="No. del cuestionario"/>
+                            <p:inputText id="txtCodigoIngresoCuestionario" binding="#{vistaCuestionario.txtCodigoIngresoCuestionario}" requiredMessage="···········" placeholder="# Aleatorio..."/>
+                            <p:outputLabel value="Instructor:" />
+                            <p:selectOneMenu id="cmbProducto" binding="#{vistaPregunta.cmbCodigo_usuario_pregunta}"
+                                                     filter="true" filterMatchMode="startsWith" style="width:260px">
+                                        <f:selectItem itemLabel="Seleccione" itemValue="null"/>
+                                        <f:selectItems value="#{vistaPregunta.itemsUsuarios}"/>
+                                    </p:selectOneMenu> 
+                            </p:column>                          
+                        </p:panelGrid>
+                      
 
 
                         <p:commandButton value="Añadir" action="#{vistaPregunta.anadir()}"
@@ -102,6 +126,8 @@
                             </p:column>
 
                         </p:dataTable>
+                        
+                        <p:button value="Registrar"> </p:button>
 
                         <center>
                        <p:commandButton value="Crear Pregunta" type="button" onclick="PF('dlg3').show();" />
@@ -132,9 +158,9 @@
                                 <p:inputText id="txtPuntaje_Pregunta" binding="#{vistaPregunta.txtPuntaje_Pregunta}" style="width:260px" placeholder="****************"/>
 
 
-                                <p:commandButton value="Guardar" id="btnRegistrar" binding="#{vistaPregunta.btnRegistrar}" actionListener="#{vistaPregunta.registrarPregunta()}" update="formularioPregunta" />
+                                <p:commandButton value="Guardar" id="btnRegistrar" binding="#{vistaPregunta.btnRegistrar}" actionListener="#{vistaPregunta.registrarPregunta()}" update="formularioPregunta,tablaPrincipal,tablaSecundaria" />
 
-                                <p:commandButton value="Limpiar" id="btnLimpiar" binding="#{vistaPregunta.btnLimpiar}" actionListener="#{vistaPregunta.limpiar()}" update="formularioPregunta" />
+                                <p:commandButton value="Limpiar" id="btnLimpiar" binding="#{vistaPregunta.btnLimpiar}" actionListener="#{vistaPregunta.limpiar()}" update="formularioPregunta,tablaPrincipal,tablaSecundaria" />
         
                             </p:panelGrid>
 
