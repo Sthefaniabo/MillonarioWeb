@@ -1,16 +1,61 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Mi Primer Java WEB</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+
+
+            <p:layout fullPage="true">
+
+
+
+                <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
+                    <div align="center" class="banner" >
+                        <h:graphicImage url="img/bannerHovi.jpg" width="100%" height="100%" alt="LogoMillonario"  />
+                    </div>
+                </p:layoutUnit>
+
+
+                <p:layoutUnit position="center">
+
+                    <h:form id="FormularioJuego">
+
+                        <div align="center">
+                            <h:graphicImage url="img/banner.jpg" width="100%" height="100%" alt="LOGO MILLONARIO"  />
+                        </div>
+
+                        <div align="center"> 
+                            <p:messages showDetail="true" /> 
+                            <p:panelGrid id="panelJuego" columns="2">
+                                <f:facet name="header">  
+                                    Ingreso/Juego  
+                                </f:facet>  
+                                <f:facet name="footer"> 
+                                    <div align="center"> 
+                                        <p:commandButton value="Ingresar" id="btnIngresar" action="#{vistaUsuarios.ingreso()}" update="FormularioJuego"/>
+                                        <p:commandButton value="Jugar" id="btnJugar" action="#{vistaUsuarios.jugar()}" update="FormularioJuego"/>
+                                    </div>
+                                </f:facet>  
+                            </p:panelGrid>
+                        </div>   
+
+                    </h:form>
+                </p:layoutUnit>
+
+            </p:layout>
+
+        </h:body>
+
+    </f:view>
 </html>
