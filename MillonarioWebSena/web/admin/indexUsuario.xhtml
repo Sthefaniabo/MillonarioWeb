@@ -14,7 +14,9 @@
             <p:layout fullPage="true">
 
                 <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
-                    Creado por Sthefania - ADSI
+                    <div align="center" class="banner" >
+                        <h:graphicImage url="../img/bannerHovi.jpg" width="100%" height="100%" alt="LogoMillonario"  />
+                    </div>
                 </p:layoutUnit>
 
                 <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
@@ -48,17 +50,17 @@
                                 <f:selectItem itemLabel="Cedula de extranjeria" itemValue="Cedula de extranjeria"/>
                             </p:selectOneMenu>
                             <p:outputLabel value="Número de identificación:"/>
-                            <p:inputText id="txtNumeroUsuario" binding="#{vistaUsuarios.txtDocumentoUsuario}" />
+                            <p:inputText id="txtNumeroUsuario" required="true" requiredMessage="El número de usuario es obligatorio" binding="#{vistaUsuarios.txtDocumentoUsuario}" />
                             <p:outputLabel value="Nombres:"/>
-                            <p:inputText id="txtNombreUsu" binding="#{vistaUsuarios.txtNombreUsu}" />
+                            <p:inputText id="txtNombreUsu" required="true" requiredMessage="El nombre de usuario es obligatorio" binding="#{vistaUsuarios.txtNombreUsu}" />
                             <p:outputLabel value="Apellido:"/>
-                            <p:inputText id="txtApellidoUsu" binding="#{vistaUsuarios.txtApellidoUsu}" />
+                            <p:inputText id="txtApellidoUsu" required="true" requiredMessage="El apellido de usuario es obligatorio" binding="#{vistaUsuarios.txtApellidoUsu}" />
                             <p:outputLabel value="Direcció:"/>
-                            <p:inputText id="txtDireccionUsu" binding="#{vistaUsuarios.txtDireccionUsu}" />
+                            <p:inputText id="txtDireccionUsu" required="true" requiredMessage="La dirección de usuario es obligatorio" binding="#{vistaUsuarios.txtDireccionUsu}" />
                             <p:outputLabel value="Telefono:"/>
-                            <p:inputText id="txtTelefonoUsu" binding="#{vistaUsuarios.txtTelefonoUsu}" />
+                            <p:inputText id="txtTelefonoUsu" required="true" requiredMessage="El telefono de usuario es obligatorio" binding="#{vistaUsuarios.txtTelefonoUsu}" />
                             <p:outputLabel value="Correo:"/>
-                            <p:inputText id="txtCorreoUsu" binding="#{vistaUsuarios.txtCorreoUsu}" />
+                            <p:inputText id="txtCorreoUsu" required="true" requiredMessage="El correo de usuario es obligatorio" binding="#{vistaUsuarios.txtCorreoUsu}" />
                             <p:outputLabel value="Permisos:"/>
                             <p:selectOneMenu id="cmbPermisos" required="true" binding="#{vistaUsuarios.cmbPermisosUsu}" requiredMessage="Debe seleccionar un tipo" >
                                 <f:selectItem itemLabel="Seleccione" itemValue="0"/>
@@ -68,7 +70,7 @@
                                 <f:selectItem itemLabel="Funcionario" itemValue="Funcionario"/>
                             </p:selectOneMenu>
                             <p:outputLabel value="Clave:"/>
-                            <p:password id="passClaveUsu" binding="#{vistaUsuarios.passUsuario}" />
+                            <p:password id="passClaveUsu" required="true" requiredMessage="Debe asignar una clave" binding="#{vistaUsuarios.passUsuario}" />
                         </p:panelGrid>
                         <p:commandButton value="Registrar" id="btnRegistrar" binding="#{vistaUsuarios.btnRegistrar}" actionListener="#{vistaUsuarios.registrarUsu()}" update="FormularioUsuarios,tablausuario"/>
                         <p:commandButton value="Modificar" id="btnActualizar" binding="#{vistaUsuarios.btnModificar}" actionListener="#{vistaUsuarios.modificarUsu()}" update="FormularioUsuarios,tablausuario"/>
@@ -134,5 +136,5 @@
         </h:body>
 
     </f:view>
-    
+
 </html>

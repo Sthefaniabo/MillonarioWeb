@@ -17,7 +17,7 @@
     
      <context-param>
         <param-name>primefaces.THEME</param-name>
-        <param-value>ui-darkness</param-value>
+        <param-value>humanity</param-value>
     </context-param>
     
     <servlet-mapping>

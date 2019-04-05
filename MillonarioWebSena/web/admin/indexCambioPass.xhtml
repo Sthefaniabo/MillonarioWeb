@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>.::Quién Millonario::. Hojas de Vida de Instructores</title>
+                <link rel="shortcut icon" href="favicon.ico"/>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+
+            <div align="center">
+                <h:graphicImage url="../img/banner.jpg" width="100%" height="100%" alt="LOGO MILLONARIO"  />
+            </div>
+            <p:panel>
+                <p:panelGrid columns="2"> 
+                    <h:form>
+                        <p:menu>
+                            <p:submenu label="Menú">                                                                     
+                                <p:menuitem value="Inicio" url="index.xhtml" />
+                                <p:menuitem value="Usuarios" url="indexUsuario.xhtml"/>
+                                <p:menuitem value="Preguntas" url="indexPreguntaCuestionario.xhtml" />
+                                <p:menuitem value="Cambio Contraseña" url="indexCambioPass" />
+                                <p:menuitem value="Cerrar Sesión" actionListener="#{vistaUsuarios.cerrarSesion()}" />
+                            </p:submenu>                  
+                        </p:menu>
+                    </h:form>
+
+                    <h:form id="formulario">                       
+                        <p:panel id="panel" header="Cambio de Contraseña">
+                            <p:messages id="mensajes" showDetail="true" />
+                            <f:facet name="actions">
+                                <p:commandLink onclick="PF('helpDialog').show();" styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default"><h:outputText styleClass="ui-icon ui-icon-help" /></p:commandLink>
+                            </f:facet>
+                            <p:panelGrid id="pnlPassword" columns="2">                                         
+                                <h:outputText value="Contraseña Actual:"/>
+                                <p:password id="passClaveOld" binding="#{vistaUsuarios.passClaveOld}" size="25"/>
+
+                                <h:outputText value="Contraseña Nueva:"/>
+                                <p:password id="passClaveNew" binding="#{vistaUsuarios.passClaveNew}" feedback="true" size="25"/>
+
+                                <h:outputText value="Confirmar Contraseña:"/>
+                                <p:password id="passClaveNew2" binding="#{vistaUsuarios.passClaveNew2}" size="25"/> 
+
+                                <f:facet name="footer"> 
+                                    <div align="center">
+                                        <p:commandButton id="btnModificar" value="Modificar" action="#{vistaUsuarios.cambiarPass_action()}" update="panel"/>
+                                        <p:commandButton id="btnLimpiarPass" value="Limpiar" action="#{vistaUsuarios.limpiarPass_action()}"  update="panel"/>
+                                    </div>
+                                </f:facet>
+                            </p:panelGrid>                                                      
+
+                        </p:panel>
+                        <!-- dialogo de ayuda -->
+                        <p:dialog id="modalDialog" header="Ayuda" widgetVar="helpDialog" showEffect="fade" hideEffect="bounce" modal="true" dynamic="true">  
+                            <p align="justify">                       
+                                En esta página usted podrá:<br/><br/>
+                                <b>-Cambiar Contraseña de Accesso:</b> el usuario que está actualmente utilizando el sistema podrá cambiar su contraseña 
+                                de acceso en cualquier momento y cuantas veces lo desee. Solo debe digitar su contraseña actual, luego la nueva contraseña dos veces. 
+                                Finalmente dar clic en el botón Modificar.
+                                <br/>             
+                            </p>
+                        </p:dialog>
+                    </h:form> 
+                </p:panelGrid>
+            </p:panel> 
+            
+            <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
+                    <div align="center" class="banner" >
+                        <h:graphicImage url="../img/bannerHovi.jpg" width="100%" height="100%" alt="LogoMillonario"  />
+                    </div>
+                </p:layoutUnit>
+             
+        </h:body>
+       
+    </f:view>
+     
+</html>

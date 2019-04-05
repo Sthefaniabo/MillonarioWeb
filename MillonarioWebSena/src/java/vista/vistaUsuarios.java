@@ -473,13 +473,47 @@ public class vistaUsuarios {
         this.btnJugar = btnJugar;
     }
 
-    public void jugar() {
+    
+    public void jugar()throws IOException{
+        
+     FacesContext.getCurrentInstance().getExternalContext().redirect("admin/indexProgramaAprendiz.xhtml");
+    }
+    
+    public void ingreso()throws IOException{
+       
+         FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+       
+    }
+    
+     public void cambiarPass_action() {
+            try {
+                Usuario user = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+                String tipoUser = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("tipoUsuario");
+                System.out.println("usuario: " + user.getNombreUsuario() + " tipo: " + tipoUser);
+                String claveAnterior = passClaveOld.getValue().toString();
+                String claveNueva1 = passClaveNew.getValue().toString();
+                String claveNueva2 = passClaveNew2.getValue().toString();
+                Usuario objUsuario = usuaPersistencia.find(user.getNumeroUsuario());
+                if(!objUsuario.getClaveUsuario().equals(claveAnterior)){
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error: ", "La clave anterior es incorrecta"));
+                }else if(!claveNueva1.equals(claveNueva2)){
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error: ", "Las claves no coinciden"));
+                }else{
+                    objUsuario.setClaveUsuario(claveNueva1);
+                    usuaPersistencia.edit(objUsuario);
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensaje: ", "La Contraseña Ha Sido Actualizada con Exito"));
+                }
+            } catch (Exception ex) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: ", ex.getMessage()));
+            }
 
-        try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("../indexProgramaAprendiz.xhtml");
-        } catch (IOException ex) {
-            Logger.getLogger(vistaUsuarios.class.getName()).log(Level.SEVERE, null, ex);
         }
+     
+      public void limpiarPass_action() {
+        passClaveNew.setValue("");
+        passClaveNew2.setValue("");
+        passClaveOld.setValue("");
+
     }
 
 }
