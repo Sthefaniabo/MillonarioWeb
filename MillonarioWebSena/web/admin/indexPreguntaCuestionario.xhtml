@@ -23,21 +23,20 @@
 
                 <p:layoutUnit position="west" size="145" header="Menu" collapsible="falses">
                     <h:form>
-                    <p:menu>
+                        <p:menu>
                             <p:menuitem value="Inicio" url="index.xhtml" />
                             <p:menuitem value="Usuarios" url="indexUsuario.xhtml"/>
-                            <p:menuitem value="Cuestionario" url="indexCuestionario.xhtml" />
                             <p:menuitem value="Preguntas" url="indexPregunta.xhtml" />
-                            <p:menuitem value="Programa Aprendices" url="indexProgramaAprendiz.xhtml" />
+                            <p:menuitem value="Cambio Contraseña" url="indexCambioPass" />
                             <p:menuitem value="Cerrar Sesión" action="#{vistaUsuarios.cerrarSesion()}" />
 
                         </p:menu>
                     </h:form>
                 </p:layoutUnit>
-                
+
                 <p:layoutUnit position="East" size="145" header="Derecha" collapsible="true">
-                    
-                    
+
+
                 </p:layoutUnit>
 
 
@@ -68,38 +67,38 @@
                             </p:column>
 
                         </p:dataTable>
-                        
-                        
-                        
-                       
+
+
+
+
                         <p:panelGrid id="panelCuestionario" columns="2">
-                         <p:commandButton value="Effects" type="button" onclick="PF('dlg3').show(panelCuestionario);" /> 
-                            
-                           <p:column>  
-                            <p:outputLabel value="Nombre del cuestionario:"/>
+                            <p:commandButton value="Effects" type="button" onclick="PF('dlg3').show(panelCuestionario);" /> 
+
+                            <p:column>  
+                                <p:outputLabel value="Nombre del cuestionario:"/>
                                 <p:inputText id="txtNombreCuestionario" binding="#{vistaCuestionario.txtNombreCuestionario}" requiredMessage="Debes colocar el nombre del cuestionario" />
-                            <p:outputLabel value="No. del cuestionario"/>
-                            <p:inputText id="txtCodigoIngresoCuestionario" binding="#{vistaCuestionario.txtCodigoIngresoCuestionario}" requiredMessage="···········" placeholder="# Aleatorio..."/>
-                            <p:outputLabel value="Instructor:" />
-                            
-                            <p:selectOneMenu id="cmbProducto" binding="#{vistaPregunta.cmbCodigo_usuario_pregunta}"
-                                                     filter="true" filterMatchMode="startsWith" style="width:260px">
-                                        <f:selectItem itemLabel="Seleccione" itemValue="null"/>
-                                        <f:selectItems value="#{vistaPregunta.itemsUsuarios}"/>
-                                    </p:selectOneMenu> 
+                                <p:outputLabel value="No. del cuestionario"/>
+                                <p:inputText id="txtCodigoIngresoCuestionario" binding="#{vistaCuestionario.txtCodigoIngresoCuestionario}" requiredMessage="···········" placeholder="# Aleatorio..."/>
+                                <p:outputLabel value="Instructor:" />
+
+                                <p:selectOneMenu id="cmbProducto" binding="#{vistaPregunta.cmbCodigo_usuario_pregunta}"
+                                                 filter="true" filterMatchMode="startsWith" style="width:260px">
+                                    <f:selectItem itemLabel="Seleccione" itemValue="null"/>
+                                    <f:selectItems value="#{vistaPregunta.itemsUsuarios}"/>
+                                </p:selectOneMenu> 
                             </p:column>                          
                         </p:panelGrid>
-                      
+
 
 
                         <p:commandButton value="Añadir" action="#{vistaPregunta.anadir()}"
                                          update="tablaSecundaria,tablaPrincipal"/>
 
 
-                        
-                         
+
+
                         <p:dataTable id="tablaSecundaria" var="Sec" value="#{vistaPreguntaCuestionario.listaPreguntaCuestionario}" scrollable="true" scrollHeight="150">
-                            
+
                             <p:column headerText="Codigo">
                                 <h:outputText value="#{Sec.codigopreguntaCuestionario}" />
                             </p:column>    
@@ -110,49 +109,49 @@
                             <p:column headerText="Codigo Cuestionario">
                                 <h:outputText value="#{Sec.codigoCuestionario.nombreCuestionario}" />
                             </p:column>
-                          
+
                         </p:dataTable>
-                         
+
                         <p:button value="Registrar"> </p:button>
 
                         <center>
-                       <p:commandButton value="Crear Pregunta" type="button" onclick="PF('dlg3').show();" />
-                       <p:dialog header="Effects" widgetVar="dlg3" showEffect="explode" hideEffect="bounce" height="50%" >
-                            
-
-                            <p:panelGrid id="tablaPregunta" columns="2" >
-                             
-                                <p:outputLabel value="PREGUNTA"/>
-                                <p:inputText id="txtPregunta" binding="#{vistaPregunta.txtPregunta}" style="width:560px" />
-                          
-                                <p:outputLabel value="RESPUESTA A"/>
-                                <p:inputText id="txtOpcionA_pregunta" binding="#{vistaPregunta.txtOpcionA_pregunta}" style="width:560px"/>
-
-                                <p:outputLabel value="RESPUESTA B"/>
-                                <p:inputText id="txtOpcionB_pregunta" binding="#{vistaPregunta.txtOpcionB_pregunta}" style="width:560px"/>
-
-                                <p:outputLabel value="RESPUESTA C"/>
-                                <p:inputText id="txtOpcionC_pregunta" binding="#{vistaPregunta.txtOpcionC_pregunta}" style="width:560px"/>
-
-                                <p:outputLabel value="RESPUESTA D"/>
-                                <p:inputText id="txtOpcionD_pregunta" binding="#{vistaPregunta.txtOpcionD_pregunta}" style="width:560px"/>
-                                
-                                <p:outputLabel value="RESPUESTA CORRCTA" />
-                                <p:inputText id="txtOpcionCorrecta_pregunta" binding="#{vistaPregunta.txtOpcionCorrecta_pregunta}" style="width:560px"/>
-
-                                <p:outputLabel value="PUNTAJE"/>
-                                <p:inputText id="txtPuntaje_Pregunta" binding="#{vistaPregunta.txtPuntaje_Pregunta}" style="width:260px" placeholder="****************"/>
+                            <p:commandButton value="Crear Pregunta" type="button" onclick="PF('dlg3').show();" />
+                            <p:dialog header="Effects" widgetVar="dlg3" showEffect="explode" hideEffect="bounce" height="50%" >
 
 
-                                <p:commandButton value="Guardar" id="btnRegistrar" binding="#{vistaPregunta.btnRegistrar}" actionListener="#{vistaPregunta.registrarPregunta()}" update="formularioPregunta,tablaPrincipal,tablaSecundaria" />
+                                <p:panelGrid id="tablaPregunta" columns="2" >
 
-                                <p:commandButton value="Limpiar" id="btnLimpiar" binding="#{vistaPregunta.btnLimpiar}" actionListener="#{vistaPregunta.limpiar()}" update="formularioPregunta,tablaPrincipal,tablaSecundaria" />
-        
-                            </p:panelGrid>
+                                    <p:outputLabel value="PREGUNTA"/>
+                                    <p:inputText id="txtPregunta" binding="#{vistaPregunta.txtPregunta}" style="width:560px" />
 
-                       
-                     </p:dialog>
-                    </center>
+                                    <p:outputLabel value="RESPUESTA A"/>
+                                    <p:inputText id="txtOpcionA_pregunta" binding="#{vistaPregunta.txtOpcionA_pregunta}" style="width:560px"/>
+
+                                    <p:outputLabel value="RESPUESTA B"/>
+                                    <p:inputText id="txtOpcionB_pregunta" binding="#{vistaPregunta.txtOpcionB_pregunta}" style="width:560px"/>
+
+                                    <p:outputLabel value="RESPUESTA C"/>
+                                    <p:inputText id="txtOpcionC_pregunta" binding="#{vistaPregunta.txtOpcionC_pregunta}" style="width:560px"/>
+
+                                    <p:outputLabel value="RESPUESTA D"/>
+                                    <p:inputText id="txtOpcionD_pregunta" binding="#{vistaPregunta.txtOpcionD_pregunta}" style="width:560px"/>
+
+                                    <p:outputLabel value="RESPUESTA CORRCTA" />
+                                    <p:inputText id="txtOpcionCorrecta_pregunta" binding="#{vistaPregunta.txtOpcionCorrecta_pregunta}" style="width:560px"/>
+
+                                    <p:outputLabel value="PUNTAJE"/>
+                                    <p:inputText id="txtPuntaje_Pregunta" binding="#{vistaPregunta.txtPuntaje_Pregunta}" style="width:260px" placeholder="****************"/>
+
+
+                                    <p:commandButton value="Guardar" id="btnRegistrar" binding="#{vistaPregunta.btnRegistrar}" actionListener="#{vistaPregunta.registrarPregunta()}" update="formularioPregunta,tablaPrincipal,tablaSecundaria" />
+
+                                    <p:commandButton value="Limpiar" id="btnLimpiar" binding="#{vistaPregunta.btnLimpiar}" actionListener="#{vistaPregunta.limpiar()}" update="formularioPregunta,tablaPrincipal,tablaSecundaria" />
+
+                                </p:panelGrid>
+
+
+                            </p:dialog>
+                        </center>
 
 
                     </h:form>
