@@ -473,13 +473,15 @@ public class vistaUsuarios {
         this.btnJugar = btnJugar;
     }
     
-    public void jugar(){
+    public void jugar()throws IOException{
         
-        try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("../indexProgramaAprendiz.xhtml");
-        } catch (IOException ex) {
-            Logger.getLogger(vistaUsuarios.class.getName()).log(Level.SEVERE, null, ex);
-        }
+     FacesContext.getCurrentInstance().getExternalContext().redirect("admin/indexProgramaAprendiz.xhtml");
+    }
+    
+    public void ingreso()throws IOException{
+       
+         FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+       
     }
 
 }
