@@ -12,6 +12,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import org.primefaces.component.inputtext.InputText;
 import persistencia.CuestionarioFacade;
 import persistencia.PreguntaCuestionarioFacade;
 import persistencia.PreguntaFacade;
@@ -39,6 +40,11 @@ public class VistaPreguntaCuestionario {
     private List<Cuestionario> listaCuestionario;
 
     private List<PreguntaCuestionario> listaPreguntaCuestionario;
+    
+     private InputText txtCodigo_preguntaCuestionario;
+    private InputText txtCodigo_pregunta;
+    private InputText txtOodigo_cuestionario;
+    
 
     /**
      * Creates a new instance of VistaPreguntaCuestionario
@@ -132,6 +138,48 @@ public class VistaPreguntaCuestionario {
      */
     public void setListaPreguntaCuestionario(List<PreguntaCuestionario> listaPreguntaCuestionario) {
         this.listaPreguntaCuestionario = listaPreguntaCuestionario;
+    }
+
+    /**
+     * @return the txtCodigo_preguntaCuestionario
+     */
+    public InputText getTxtCodigo_preguntaCuestionario() {
+        return txtCodigo_preguntaCuestionario;
+    }
+
+    /**
+     * @param txtCodigo_preguntaCuestionario the txtCodigo_preguntaCuestionario to set
+     */
+    public void setTxtCodigo_preguntaCuestionario(InputText txtCodigo_preguntaCuestionario) {
+        this.txtCodigo_preguntaCuestionario = txtCodigo_preguntaCuestionario;
+    }
+
+    /**
+     * @return the txtCodigo_pregunta
+     */
+    public InputText getTxtCodigo_pregunta() {
+        return txtCodigo_pregunta;
+    }
+
+    /**
+     * @param txtCodigo_pregunta the txtCodigo_pregunta to set
+     */
+    public void setTxtCodigo_pregunta(InputText txtCodigo_pregunta) {
+        this.txtCodigo_pregunta = txtCodigo_pregunta;
+    }
+
+    /**
+     * @return the txtOodigo_cuestionario
+     */
+    public InputText getTxtOodigo_cuestionario() {
+        return txtOodigo_cuestionario;
+    }
+
+    /**
+     * @param txtOodigo_cuestionario the txtOodigo_cuestionario to set
+     */
+    public void setTxtOodigo_cuestionario(InputText txtOodigo_cuestionario) {
+        this.txtOodigo_cuestionario = txtOodigo_cuestionario;
     }
 
 }
