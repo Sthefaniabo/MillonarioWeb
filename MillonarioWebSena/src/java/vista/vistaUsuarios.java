@@ -488,12 +488,11 @@ public class vistaUsuarios {
      public void cambiarPass_action() {
             try {
                 Usuario user = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
-                String tipoUser = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("tipoUsuario");
-                System.out.println("usuario: " + user.getNombreUsuario() + " tipo: " + tipoUser);
+                System.out.println("usuario: " + user.getNombreUsuario());
                 String claveAnterior = passClaveOld.getValue().toString();
                 String claveNueva1 = passClaveNew.getValue().toString();
                 String claveNueva2 = passClaveNew2.getValue().toString();
-                Usuario objUsuario = usuaPersistencia.find(user.getNumeroUsuario());
+                Usuario objUsuario = usuaPersistencia.find(user.getCodigoUsuario());
                 if(!objUsuario.getClaveUsuario().equals(claveAnterior)){
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error: ", "La clave anterior es incorrecta"));
                 }else if(!claveNueva1.equals(claveNueva2)){
