@@ -68,36 +68,75 @@
 
                         </p:dataTable>
 
+                        <center>
+                            <p:commandButton value="Añadir" action="#{vistaPregunta.anadir()}"
+                                             update="tablaSecundaria,tablaPrincipal"/>
+
+                            <p:commandButton value="Crear Cuestionario" type="button" onclick="PF('dlg2').show();" />
+                            <p:dialog header="Crear Cuestionario" widgetVar="dlg2" showEffect="explode" hideEffect="bounce" height="100">
+                                <p:panelGrid id="panelCuestionario" columns="4">
+                                    <p:column selectionMode="single" style="width:16px;text-align:center"/>
+                                    <p:column>  
+                                        <p:outputLabel value="Nombre del cuestionario:"/>
+                                        <p:inputText id="txtNombreCuestionario" binding="#{vistaCuestionario.txtNombreCuestionario}" requiredMessage="Debes colocar el nombre del cuestionario" />
+                                    </p:column> 
+                                    <p:column>
+                                        <p:outputLabel value="No. del cuestionario"/>
+                                        <p:inputText id="txtCodigoIngresoCuestionario" binding="#{vistaCuestionario.txtCodigoIngresoCuestionario}" requiredMessage="···········" placeholder="# Aleatorio..."/>
+                                    </p:column>
+                                    <p:column>   
+                                        <p:outputLabel value="Instructor:" />
+
+                                        <p:selectOneMenu id="cmbProducto" binding="#{vistaPregunta.cmbCodigo_usuario_pregunta}"
+                                                         filter="true" filterMatchMode="startsWith" style="width:260px">
+                                            <f:selectItem itemLabel="Seleccione" itemValue="null"/>
+                                            <f:selectItems value="#{vistaPregunta.itemsUsuarios}"/>
+                                        </p:selectOneMenu> 
+                                    </p:column>                          
+                                </p:panelGrid>
+
+                                <p:commandButton value="Registrar" id="btnRegistrarC" binding="#{vistaCuestionario.btnRegistrar}" 
+                                                 actionListener="#{vistaCuestionario.registrar()}"/>
+                            </p:dialog>
 
 
 
-                        <p:panelGrid id="panelCuestionario" columns="2">
-                            <p:commandButton value="Effects" type="button" onclick="PF('dlg3').show(panelCuestionario);" /> 
-
-                            <p:column>  
-                                <p:outputLabel value="Nombre del cuestionario:"/>
-                                <p:inputText id="txtNombreCuestionario" binding="#{vistaCuestionario.txtNombreCuestionario}" requiredMessage="Debes colocar el nombre del cuestionario" />
-                                <p:outputLabel value="No. del cuestionario"/>
-                                <p:inputText id="txtCodigoIngresoCuestionario" binding="#{vistaCuestionario.txtCodigoIngresoCuestionario}" requiredMessage="···········" placeholder="# Aleatorio..."/>
-                                <p:outputLabel value="Instructor:" />
-
-                                <p:selectOneMenu id="cmbProducto" binding="#{vistaPregunta.cmbCodigo_usuario_pregunta}"
-                                                 filter="true" filterMatchMode="startsWith" style="width:260px">
-                                    <f:selectItem itemLabel="Seleccione" itemValue="null"/>
-                                    <f:selectItems value="#{vistaPregunta.itemsUsuarios}"/>
-                                </p:selectOneMenu> 
-                            </p:column>                          
-                        </p:panelGrid>
+                            <p:commandButton value="Ver Tabla Cuestionario" type="button" onclick="PF('cuestionario').show();" />
+                            <p:dialog header="Tabla Cuestionario" widgetVar="cuestionario" showEffect="explode" hideEffect="bounce" height="50%" >
+                                <p:panelGrid id="cuestionarioPanel" columns="4">
 
 
+                                    <p:dataTable id="tablacuestionario" var="cues" value="#{vistaCuestionario.listaCuestionario}" selectionMode="single" rowKey="#{cues.codigoCuestionario}"
+                                                 selection="#{vistaCuestionario.cuestionarioSeleccionado}" rows="5" paginator="true" rowsPerPageTemplate="5,10,15">
+                                        <p:ajax event="rowSelect" listener="#{vistaCuestionario.seleccionarCuestionario}" update="tablacuestionario"/>
 
-                        <p:commandButton value="Añadir" action="#{vistaPregunta.anadir()}"
-                                         update="tablaSecundaria,tablaPrincipal"/>
+                                        <p:column selectionMode="single" style="width:16px;text-align:center"/>
+                                        <p:column headerText="Codigo Cuestionario">
+                                            <h:outputText value="#{cues.codigoCuestionario}" />
+                                        </p:column>
+
+                                        <p:column headerText="Nombre Cuestionario">
+                                            <h:outputText value="#{cues.nombreCuestionario}" />
+                                        </p:column>
+
+                                        <p:column headerText="Instructor Cuestionario">
+                                            <h:outputText value="#{cues.instructorCuestionario}" />
+                                        </p:column>
+
+                                        <p:column headerText="No. del Cuestionario">
+                                            <h:outputText value="#{cues.codigoIngresoCuestionario}" />
+                                        </p:column>
+                                    </p:dataTable>
 
 
+                                </p:panelGrid>
+                            </p:dialog>  
 
+                        </center>
 
-                        <p:dataTable id="tablaSecundaria" var="Sec" value="#{vistaPreguntaCuestionario.listaPreguntaCuestionario}" scrollable="true" scrollHeight="150">
+                        <p:dataTable id="tablaSecundaria" var="Sec" value="#{vistaPreguntaCuestionario.listaPreguntaCuestionario}" rowKey="#{Sec.codigoCuestionario}" selection="#{vistaCuestionario.cuestionarioSeleccionado}" scrollable="true" scrollHeight="150">
+                            <p:ajax event="rowSelect" listener="#{vistaCuestionario.seleccionarCuestionario}" update="tablaSecundaria"/>
+
 
                             <p:column headerText="Codigo">
                                 <h:outputText value="#{Sec.codigopreguntaCuestionario}" />
@@ -112,11 +151,16 @@
 
                         </p:dataTable>
 
+
+
+
+
+
                         <p:button value="Registrar"> </p:button>
 
                         <center>
                             <p:commandButton value="Crear Pregunta" type="button" onclick="PF('dlg3').show();" />
-                            <p:dialog header="Effects" widgetVar="dlg3" showEffect="explode" hideEffect="bounce" height="50%" >
+                            <p:dialog header="Crear Pregunta" widgetVar="dlg3" showEffect="explode" hideEffect="bounce" height="50%" style="text-align: center">
 
 
                                 <p:panelGrid id="tablaPregunta" columns="2" >

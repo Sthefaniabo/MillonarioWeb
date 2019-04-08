@@ -281,10 +281,10 @@ public class VistaCuestionario {
        Cuestionario nuevoCues = new Cuestionario();
         //nuevoCues.setCodigoCuestionario(Integer.parseInt(txtCodigoCuestionario.getValue().toString()));
         nuevoCues.setNombreCuestionario(txtNombreCuestionario.getValue().toString());//De estas forma capturamos un objeto o un texto pero en String.
-        nuevoCues.setInstructorCuestionario(cmbInstructorCuestionario.getValue().toString());
         nuevoCues.setCodigoIngresoCuestionario(txtCodigoIngresoCuestionario.getValue().toString());
+        nuevoCues.setInstructorCuestionario(cmbInstructorCuestionario.getValue().toString());
         cuestionarioPersistencia.create(nuevoCues);
-        limpiar();
+        
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Notificacion", "Cuestionario Registrado"));
         
     }
@@ -310,7 +310,7 @@ public class VistaCuestionario {
         cuestionario.setInstructorCuestionario(cmbInstructorCuestionario.getValue().toString());
         cuestionario.setCodigoIngresoCuestionario(txtCodigoIngresoCuestionario.getValue().toString());
         cuestionarioPersistencia.edit(cuestionario);
-        limpiar();
+       
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Notificación", "¡Cuestionario modificado correctamente!"));
         
         
@@ -327,21 +327,12 @@ public class VistaCuestionario {
          cues.setInstructorCuestionario(cmbInstructorCuestionario.getValue().toString());
          cues.setCodigoIngresoCuestionario(txtCodigoIngresoCuestionario.getValue().toString());
          cuestionarioPersistencia.remove(cues);
-         limpiar();
+         
          FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Notificacion", "Cuestionario Eliminado Correctamente!!"));
          
     }
     
-    public void limpiar(){
-        
-        
-        //Cada vez que presione el boton de "Limpiar" lo que va a hacer este MEtodo es que me va a dejar los campos en Blanco/Vacios...
-        //getTxtCodigoCuestionario().setValue("");
-        getTxtCodigoIngresoCuestionario().setValue("");
-        getTxtNombreCuestionario().setValue("");
-        getCmbInstructorCuestionario().setValue("");  
-        
-    }
+   
     
     
     public void registrarAprendices() throws IOException{
